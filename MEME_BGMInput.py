@@ -1,8 +1,8 @@
 from eudplib import *
 import math
 
-#Laptop : 'C:\\Users\\whatd\\Desktop\\Stormcoast Fortress\\ScmDraft 2\\MapSource\\MEME_EUD_Project\\'
-#Desktop : 'C:\\Users\\USER\\Documents\\MapSource\\MEME_EUD_Project'
+#Laptop : 'C:\\Users\\whatd\\Desktop\\Stormcoast Fortress\\ScmDraft 2\\MSF_MEME_EUD\\'
+#Desktop : 'C:\\Users\\USER\\Documents\\MSF_MEME_EUD'
 
 def Exec_OggFile():
 	#BGM

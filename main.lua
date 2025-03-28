@@ -2,7 +2,7 @@
 -- to DeskTop : Curdir="C:\\Users\\USER\\Documents\\"
 -- to LAPTOP : Curdir="C:\\Users\\whatd\\Desktop\\Stormcoast Fortress\\ScmDraft 2\\"
 --__MapDirSetting(__encode_cp949("C:\\euddraft0.9.2.0")) -- 맵파일 경로(\를 \\로 바꿔야함)
---__SubDirSetting(__encode_cp949(Curdir.."MapSource\\MEME_EUD_Project")) -- Main.lua 폴더경로 (\를 \\로 바꿔야함, 없으면 비우기)
+--__SubDirSetting(__encode_cp949(Curdir.."MSF_MEME_EUD")) -- Main.lua 폴더경로 (\를 \\로 바꿔야함, 없으면 비우기)
 --속도측정용
 --local x = os.clock()
 ----------------------------------------------Loader Space ---------------------------------------------------------------------
@@ -15,10 +15,10 @@ for dir in io.popen(EXTLUA):lines() do
      end
 end
 
-EXTLUA = "dir \""..Curdir.."\\MapSource\\MEME_EUD_Project\\\" /b"
+EXTLUA = "dir \""..Curdir.."\\MSF_MEME_EUD\\\" /b"
 for dir in io.popen(EXTLUA):lines() do
      if dir:match "%.[Ll][Uu][Aa]$" and dir ~= "main.lua" then
-		InitEXTLua = assert(loadfile(Curdir.."MapSource\\MEME_EUD_Project\\"..dir))
+		InitEXTLua = assert(loadfile(Curdir.."MSF_MEME_EUD\\"..dir))
 		InitEXTLua()
      end
 end
@@ -27,6 +27,11 @@ end
 math.randomseed(322,322)
 
 TestSet(2)
+if Limit == 1 then
+	BGMTimerForceReset = 1
+else
+	BGMTimerForceReset = 0
+end
 FP = P6
 SetForces({P1,P2,P3,P4,P5},{P7,P8},{P6},{},{P1,P2,P3,P4,P5,P6,P7,P8})
 SetFixedPlayer(FP)
@@ -52,6 +57,7 @@ Include_G_CB_Library(22,0x600,128)
 
 
 CJumpEnd(AllPlayers,init_func)
+NoAirCollisionX(FP)
 P1MCur = CreateVar(FP)
 P1MPrev = CreateVar(FP)
 P1MValue = CreateVar(FP)

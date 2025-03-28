@@ -24,7 +24,13 @@ function GunTrig()
 	})
 	
 
-	CDoActions(FP, {TSetDeathsX(Force1, Subtract, Dt, 12,0xFFFFFF)})
+	
+	if BGMTimerForceReset == 1 then
+		DoActions(FP, {SetDeathsX(Force1, SetTo, 0, 12,0xFFFFFF)})
+	else
+		CDoActions(FP, {TSetDeathsX(Force1, Subtract, Dt, 12,0xFFFFFF)})
+	
+	end
 	if TestStart == 0 then
 		DoActionsX(FP,{SetV(BGMType,2)},1)
 	end
@@ -409,11 +415,11 @@ G_CB_TScanEff({CD(GunTrigGCcode,3680//0x1D,AtLeast)}, {HCC}, GunTrigGLoc, 10, 1,
 G_CB_TScanEff({CD(GunTrigGCcode,3930//0x1D,AtLeast)}, {HCC}, GunTrigGLoc, 4, 1,{LMTable="MAX"})
 G_CB_TScanEff({CD(GunTrigGCcode,4420//0x1D,AtLeast)}, {HCC}, GunTrigGLoc, 426, 1,{LMTable="MAX"})
 
-G_CB_TSetSpawn({CD(GunTrigGCcode,4910 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[1],P8,GunTrigGLoc,1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,5040 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[2],P8,GunTrigGLoc,1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,5160 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[3],P8,GunTrigGLoc,1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,5280 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[4],P8,GunTrigGLoc,1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,5410 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[5],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,4910 // 0x1D,AtLeast)},{30},HSh_T1[1],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,5040 // 0x1D,AtLeast)},{30},HSh_T1[2],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,5160 // 0x1D,AtLeast)},{30},HSh_T1[3],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,5280 // 0x1D,AtLeast)},{30},HSh_T1[4],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,5410 // 0x1D,AtLeast)},{30},HSh_T1[5],P8,GunTrigGLoc,1,{LMTable="MAX"})
 
 
 
@@ -460,11 +466,11 @@ G_CB_TScanEff({CD(GunTrigGCcode,4420//0x1D,AtLeast)}, {HCC}, GunTrigGLoc, 426, 1
 
 
 
-G_CB_TSetSpawn({CD(GunTrigGCcode,4910 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[1],P8,GunTrigGLoc,1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,5040 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[2],P8,GunTrigGLoc,1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,5160 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[3],P8,GunTrigGLoc,1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,5280 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[4],P8,GunTrigGLoc,1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,5410 // 0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},HSh_T1[5],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,4910 // 0x1D,AtLeast)},{30},HSh_T1[1],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,5040 // 0x1D,AtLeast)},{30},HSh_T1[2],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,5160 // 0x1D,AtLeast)},{30},HSh_T1[3],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,5280 // 0x1D,AtLeast)},{30},HSh_T1[4],P8,GunTrigGLoc,1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,5410 // 0x1D,AtLeast)},{30},HSh_T1[5],P8,GunTrigGLoc,1,{LMTable="MAX"})
 
 
 
@@ -827,7 +833,10 @@ G_CB_TSetSpawn({CD(GunTrigGCcode,5550 // 0x1D,AtLeast)},{84,"Artanis (Scout)"},C
 
 
 
-
+TriggerX(FP,{CD(GunTrigGCcode,4440 // 0x1D,AtLeast)},{CreateUnit(10, "Edmund Duke (Siege Mode)", "CD187", P8)})
+TriggerX(FP,{CD(GunTrigGCcode,4810 // 0x1D,AtLeast)},{CreateUnit(10, "Edmund Duke (Siege Mode)", "CD187", P8)})
+TriggerX(FP,{CD(GunTrigGCcode,5180 // 0x1D,AtLeast)},{CreateUnit(10, "Edmund Duke (Siege Mode)", "CD187", P8)})
+TriggerX(FP,{CD(GunTrigGCcode,5550 // 0x1D,AtLeast)},{CreateUnit(10, "Edmund Duke (Siege Mode)", "CD187", P8)})
 
 
 CIfEnd()
@@ -1157,22 +1166,22 @@ CD76 = CIf_GunTrig(P8, "Zerg Cerebrate", "CD76",35000//0x1D,14);
 
 function Cos_FuncY(X) return math.sin(X) end
 WaveShapeA = CSMakeGraphX({8,8},"Cos_FuncY",0,0,1,nil,15) -- y= math.cos(x)
-CD76_Sh = CS_RatioXY(CS_MoveXY(WaveShapeA, -47, 0), 3, 3)
+CD76_Sh = CS_SortX(CS_RatioXY(CS_MoveXY(WaveShapeA, -47, 0), 3, 3),0)
 --845
-G_CB_TScanEff({CD(GunTrigGCcode,((420+(845*(1-1)))//0x1D),AtLeast)}, {CD76_Sh}, GunTrigGLoc, 58,1,{LMTable="MAX"})
-G_CB_TScanEff({CD(GunTrigGCcode,((420+(845*(2-1)))//0x1D),AtLeast)}, {CD76_Sh}, GunTrigGLoc, 60,1,{LMTable="MAX"})
-G_CB_TScanEff({CD(GunTrigGCcode,((420+(845*(3-1)))//0x1D),AtLeast)}, {CD76_Sh}, GunTrigGLoc, 332,1,{LMTable="MAX"})
-G_CB_TScanEff({CD(GunTrigGCcode,((420+(845*(4-1)))//0x1D),AtLeast)}, {CD76_Sh}, GunTrigGLoc, 318,1,{LMTable="MAX"})
+G_CB_TScanEff({CD(GunTrigGCcode,((420+(845*(1-1)))//0x1D),AtLeast)}, {CD76_Sh}, GunTrigGLoc, 58,1,{LMTable=1})
+G_CB_TScanEff({CD(GunTrigGCcode,((420+(845*(2-1)))//0x1D),AtLeast)}, {CD76_Sh}, GunTrigGLoc, 60,1,{LMTable=1})
+G_CB_TScanEff({CD(GunTrigGCcode,((420+(845*(3-1)))//0x1D),AtLeast)}, {CD76_Sh}, GunTrigGLoc, 332,1,{LMTable=1})
+G_CB_TScanEff({CD(GunTrigGCcode,((420+(845*(4-1)))//0x1D),AtLeast)}, {CD76_Sh}, GunTrigGLoc, 318,1,{LMTable=1})
 
 for i = 0, 3 do
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(3800+(845*i))//0x1D,AtLeast)},{"Hunter Killer (Hydralisk)","Kukulza (Mutalisk)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(7180+(845*i))//0x1D,AtLeast)},{"Torrasque (Ultralisk)","Kukulza (Guardian)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(10560+(845*i))//0x1D,AtLeast)},{"Hunter Killer (Hydralisk)","Kukulza (Mutalisk)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(13940+(845*i))//0x1D,AtLeast)},{"Torrasque (Ultralisk)","Kukulza (Guardian)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(17320+(845*i))//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(20700+(845*i))//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(24080+(845*i))//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(27460+(845*i))//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable="MAX"})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(3800+(845*i))//0x1D,AtLeast)},{"Hunter Killer (Hydralisk)","Kukulza (Mutalisk)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable=1})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(7180+(845*i))//0x1D,AtLeast)},{"Torrasque (Ultralisk)","Kukulza (Guardian)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable=1})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(10560+(845*i))//0x1D,AtLeast)},{"Hunter Killer (Hydralisk)","Kukulza (Mutalisk)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable=1})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(13940+(845*i))//0x1D,AtLeast)},{"Torrasque (Ultralisk)","Kukulza (Guardian)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable=1})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(17320+(845*i))//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable=1})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(20700+(845*i))//0x1D,AtLeast)},{30},CD76_Sh,P8,GunTrigGLoc,1,{LMTable=1})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(24080+(845*i))//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD76_Sh,P8,GunTrigGLoc,1,{LMTable=1})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(27460+(845*i))//0x1D,AtLeast)},{30},CD76_Sh,P8,GunTrigGLoc,1,{LMTable=1})
 end
 
 
@@ -1181,28 +1190,31 @@ CIfEnd()
 ICDC = CIf_GunTrig(P8, "Ion Cannon", "ICD",(55380+5000)//0x1D,15);
 ICDC_Sh1 = CSMakeCircle(99, 1024, 0, 100, 1)
 ICDC_Sh2 = CSMakeCircle(49, 1024+512, 0, 50, 1)
+ICDC_Sh3 = CSMakeCircle(5, 256, 0, 6, 1)
 G_CB_TScanEff({CD(GunTrigGCcode,0,AtLeast)}, {ICDC_Sh1}, "HZ", 391,1)
 G_CB_TSetSpawn({CD(GunTrigGCcode,1840//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,1840//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh2,P8,"HZ",1,{LMTable="MAX"})
+for j,k in pairs({"CD43","CD44","CD45","CD46","CD47"}) do
+	G_CB_TSetSpawn({CD(GunTrigGCcode,1840//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX"})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,9230//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX"})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,18460//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX"})
+end
 
 G_CB_TSetSpawn({CD(GunTrigGCcode,9230//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,9230//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh2,P8,"HZ",1,{LMTable="MAX"})
 
 G_CB_TSetSpawn({CD(GunTrigGCcode,18460//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX"})
-G_CB_TSetSpawn({CD(GunTrigGCcode,18460//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh2,P8,"HZ",1,{LMTable="MAX"})
 for i = 0,15 do
-	G_CB_TScanEff({CD(GunTrigGCcode,(24000//0x1D)+i,AtLeast)}, {CD218Sh_2}, "HZ", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},10)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,25840//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"HZ",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-	G_CB_TScanEff({CD(GunTrigGCcode,(31380//0x1D)+i,AtLeast)}, {CD218Sh_2}, "HZ", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},15)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,33230//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"HZ",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-	G_CB_TScanEff({CD(GunTrigGCcode,(38760//0x1D)+i,AtLeast)}, {CD218Sh_2}, "HZ", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},0)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,40610//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"HZ",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-	G_CB_TScanEff({CD(GunTrigGCcode,(46150//0x1D)+i,AtLeast)}, {CD218Sh_2}, "HZ", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},13)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,48000//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"HZ",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-	G_CB_TScanEff({CD(GunTrigGCcode,(51690//0x1D)+i,AtLeast)}, {CD218Sh_2}, "HZ", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},16)
-	G_CB_TScanEff({CD(GunTrigGCcode,(52610//0x1D)+i,AtLeast)}, {CD218Sh_2}, "HZ", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},16)
-	G_CB_TScanEff({CD(GunTrigGCcode,(53530//0x1D)+i,AtLeast)}, {CD218Sh_2}, "HZ", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},17)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,55380//0x1D,AtLeast)},{30},CD218Sh_2,P8,"HZ",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
+	G_CB_TScanEff({CD(GunTrigGCcode,(24000//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},10)
+	G_CB_TSetSpawn({CD(GunTrigGCcode,25840//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
+	G_CB_TScanEff({CD(GunTrigGCcode,(31380//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},15)
+	G_CB_TSetSpawn({CD(GunTrigGCcode,33230//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
+	G_CB_TScanEff({CD(GunTrigGCcode,(38760//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},0)
+	G_CB_TSetSpawn({CD(GunTrigGCcode,40610//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
+	G_CB_TScanEff({CD(GunTrigGCcode,(46150//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},13)
+	G_CB_TSetSpawn({CD(GunTrigGCcode,48000//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
+	G_CB_TScanEff({CD(GunTrigGCcode,(51690//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},16)
+	G_CB_TScanEff({CD(GunTrigGCcode,(52610//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},16)
+	G_CB_TScanEff({CD(GunTrigGCcode,(53530//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},17)
+	G_CB_TSetSpawn({CD(GunTrigGCcode,55380//0x1D,AtLeast)},{30},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
 end
 TriggerX(FP,{CD(GunTrigGCcode,0,AtLeast)},{RotatePlayer({RunAIScript("Turn ON Shared Vision for Player 8");}, Force1, FP)})
 TriggerX(FP,{CD(GunTrigGCcode,25840//0x1D,AtLeast)},{RotatePlayer({RunAIScript("Turn OFF Shared Vision for Player 8");}, Force1, FP)})

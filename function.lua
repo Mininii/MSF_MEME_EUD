@@ -365,6 +365,10 @@ RLocV = CreateVar(FP)
 QueueOX = CreateVar(FP)
 QueueOY = CreateVar(FP)
 CIf(FP,{TMemoryX(_Add(RPtr,40),AtLeast,150*16777216,0xFF000000)})
+
+	CTrigger(FP,{CV(RUID,40)},{--부르드링 리무브타이머 제거
+		TSetMemoryX(_Add(RPtr,68),SetTo,0,0xFFFF),
+	},{preserved})
 		
 		--CIf(FP,{TTOR({CV(RUID,25),CV(RUID,30)})})
 		--CDoActions(FP,{

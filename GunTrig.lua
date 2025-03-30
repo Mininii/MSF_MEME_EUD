@@ -20,14 +20,15 @@ function GunTrig()
 		{16,"staredit\\wav\\bling.ogg",86*1000},--브링방방
 		{17,"staredit\\wav\\_PAI2.ogg",41*1000},--파이
 		{18,"staredit\\wav\\_JSH.ogg",50*1000},--신창섭
-		{19,"staredit\\wav\\_XL1.ogg",61*1000},--
-		{20,"staredit\\wav\\_GUCI1.ogg",67*1000},--구찌
+		{19,"staredit\\wav\\_XL1.ogg",31*1000},--
+		{20,"staredit\\wav\\_GUCI2.ogg",67*1000},--구찌
 		{21,"staredit\\wav\\_KWI2.ogg",106*1000},--귀여워서미안해
-		{22,"staredit\\wav\\_YSS1.ogg",54*1000},--워싱쉬
+		{22,"staredit\\wav\\_YSS2.ogg",40*1000},--워싱쉬
 		{23,"staredit\\wav\\_ITN1.ogg",43*1000},--인터넷
 		{24,"staredit\\wav\\_JOJO2.ogg",290*1000},--조조..등록만해놓고 밑에서 강제로 틀듯
-		{25,"staredit\\wav\\_JOP1.ogg",90*1000},--
+		{25,"staredit\\wav\\_JOP1.ogg",89*1000},--
 		{26,"staredit\\wav\\__NUT.ogg",29*1000},--
+		{27,"staredit\\wav\\UnwelcomeSchool2.ogg",66*1000},--아루2
 
 		
 		
@@ -755,7 +756,7 @@ CIfEnd()
 
 
 
-CD77 = CIf_GunTrig(P8, "Warp Gate", "CD77",(21500//0x1D)+2,8);
+CD77 = CIf_GunTrig(P8, "Warp Gate", "CD77",(21500//0x1D)+2,27);
 
 ICD2T = CreateCcode()
 
@@ -936,7 +937,12 @@ CD218Sh_1 = CS_OverlapX(
 	CSMakeLine(1, 64, 30, 3, 0)
 )
 CD218Sh_2 = CSMakeCircle(6, 240, 0, 7, 1)
+CD218Sh_T = {}
+for i = 0, 15 do
+	table.insert(CD218Sh_T, CS_RatioXY(CS_Rotate(CD218Sh_2,i*16),1-(0.06*i),1-(0.06*i)))
 
+end
+CD218Sh_2 = CS_OverlapX(table.unpack(CD218Sh_T))
 function DDINGEff(Loc1,Loc2)
 	G_CB_TScanEff({CD(GunTrigGCcode,(460//0x1D),AtLeast)}, {CD218Sh_1}, Loc1, 434,1,{LMTable="MAX",RotateTable = 45})
 	G_CB_TScanEff({CD(GunTrigGCcode,(460//0x1D),AtLeast)}, {CD218Sh_1}, Loc2, 434,1,{LMTable="MAX",RotateTable = 45})
@@ -961,10 +967,10 @@ function DDINGEff(Loc1,Loc2)
 	
 	end
 function DDINGEff2(Time,Loc1,Loc2)
-	for i = 0,15 do
-		G_CB_TScanEff({CD(GunTrigGCcode,(Time//0x1D)+i,AtLeast)}, {CD218Sh_2}, Loc1, 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},10)
-		G_CB_TScanEff({CD(GunTrigGCcode,(Time//0x1D)+i,AtLeast)}, {CD218Sh_2}, Loc2, 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},10)
-	end
+	
+	
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time//0x1D),AtLeast)}, {CD218Sh_2}, Loc1, 391,1,{LMTable=6},10)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time//0x1D),AtLeast)}, {CD218Sh_2}, Loc2, 391,1,{LMTable=6},10)
 end
 CD218Sh_3 = CSMakeStar(5,135,128,180,CS_Level("Star",5,2),0)
 function DDINGSpanwnSet(Time,Loc1,Loc2,UnitTable)
@@ -1198,7 +1204,6 @@ end
 
 
 CIfEnd()
-
 ICDC = CIf_GunTrig(P8, "Ion Cannon", "ICD",(55380+5000)//0x1D,15);
 ICDC_Sh1 = CSMakeCircle(99, 1024, 0, 100, 1)
 ICDC_Sh2 = CSMakeCircle(49, 1024+512, 0, 50, 1)
@@ -1214,20 +1219,20 @@ end
 G_CB_TSetSpawn({CD(GunTrigGCcode,9230//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX"})
 
 G_CB_TSetSpawn({CD(GunTrigGCcode,18460//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX"})
-for i = 0,15 do
-	G_CB_TScanEff({CD(GunTrigGCcode,(24000//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},10)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,25840//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-	G_CB_TScanEff({CD(GunTrigGCcode,(31380//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},15)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,33230//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-	G_CB_TScanEff({CD(GunTrigGCcode,(38760//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},0)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,40610//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-	G_CB_TScanEff({CD(GunTrigGCcode,(46150//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},13)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,48000//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-	G_CB_TScanEff({CD(GunTrigGCcode,(51690//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},16)
-	G_CB_TScanEff({CD(GunTrigGCcode,(52610//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},16)
-	G_CB_TScanEff({CD(GunTrigGCcode,(53530//0x1D)+i,AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)},17)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,55380//0x1D,AtLeast)},{30},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX",RotateTable = i*16,SizeTable=100-(i*6)})
-end
+
+
+G_CB_TScanEff({CD(GunTrigGCcode,(24000//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},10)
+G_CB_TSetSpawn({CD(GunTrigGCcode,25840//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX"})
+G_CB_TScanEff({CD(GunTrigGCcode,(31380//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},15)
+G_CB_TSetSpawn({CD(GunTrigGCcode,33230//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX"})
+G_CB_TScanEff({CD(GunTrigGCcode,(38760//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},0)
+G_CB_TSetSpawn({CD(GunTrigGCcode,40610//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX"})
+G_CB_TScanEff({CD(GunTrigGCcode,(46150//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},13)
+G_CB_TSetSpawn({CD(GunTrigGCcode,48000//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX"})
+G_CB_TScanEff({CD(GunTrigGCcode,(51690//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},16)
+G_CB_TScanEff({CD(GunTrigGCcode,(52610//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},16)
+G_CB_TScanEff({CD(GunTrigGCcode,(53530//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},17)
+G_CB_TSetSpawn({CD(GunTrigGCcode,55380//0x1D,AtLeast)},{30},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX"})
 TriggerX(FP,{CD(GunTrigGCcode,0,AtLeast)},{RotatePlayer({RunAIScript("Turn ON Shared Vision for Player 8");}, Force1, FP)})
 TriggerX(FP,{CD(GunTrigGCcode,25840//0x1D,AtLeast)},{RotatePlayer({RunAIScript("Turn OFF Shared Vision for Player 8");}, Force1, FP)})
 
@@ -1335,36 +1340,311 @@ G_CB_TSetSpawn({CD(GunTrigGCcode,(13400)//0x1D,AtLeast)},{"Edmund Duke (Siege Mo
 CIfEnd()
 
 CD73 = CIf_GunTrig(P8, "Terran Command Center", "CD73",90000//0x1D,18);
+CD73EffT = {}
+CD73_Sh1=CSMakeStar(6,135,96,180,CS_Level("Star",6,2),0)
+for i = 0, 7 do
+	table.insert(CD73EffT,CSMakePolygon(3+i, 64, 0, PlotSizeCalc(3+i,2), PlotSizeCalc(3+i,1)))
+	
+end
+
+G_CB_TScanEff({CD(GunTrigGCcode,600//0x1D,AtLeast)}, {CD73EffT[1]}, "CD73", 332,1,{LMTable=1},0)
+G_CB_TScanEff({CD(GunTrigGCcode,1800//0x1D,AtLeast)}, {CD73EffT[2]}, "CD73", 332,1,{LMTable=1},0)
+G_CB_TScanEff({CD(GunTrigGCcode,3000//0x1D,AtLeast)}, {CD73EffT[3]}, "CD73", 333,1,{LMTable=1},0)
+G_CB_TScanEff({CD(GunTrigGCcode,4200//0x1D,AtLeast)}, {CD73EffT[4]}, "CD73", 334,1,{LMTable=1},0)
+G_CB_TScanEff({CD(GunTrigGCcode,5400//0x1D,AtLeast)}, {CD73EffT[5]}, "CD73", 213,1,{LMTable=1},0)
+G_CB_TScanEff({CD(GunTrigGCcode,6600//0x1D,AtLeast)}, {CD73EffT[6]}, "CD73", 214,1,{LMTable=1},0)
+G_CB_TScanEff({CD(GunTrigGCcode,7800//0x1D,AtLeast)}, {CD73EffT[7]}, "CD73", 215,1,{LMTable=1},0)
+G_CB_TScanEff({CD(GunTrigGCcode,9000//0x1D,AtLeast)}, {CD73EffT[8]}, "CD73", 318,1,{LMTable=1},16)
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,(9600)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73EffT[8],P8,"CD73",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(12000)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73EffT[8],P8,"CD74",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(14400)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73EffT[8],P8,"CD75",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(16800)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73EffT[8],P8,"CD73",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(16800)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73EffT[8],P8,"CD74",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(16800)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73EffT[8],P8,"CD75",1,{LMTable="MAX",RepeatType="Nothing"}) 
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,(9600)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73EffT[8],P8,"CD73",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(12000)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73EffT[8],P8,"CD74",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(14400)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73EffT[8],P8,"CD75",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(16800)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73EffT[8],P8,"CD73",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(16800)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73EffT[8],P8,"CD74",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(16800)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73EffT[8],P8,"CD75",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+
+
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,(19200)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73_Sh1,P8,"CD73",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(21600)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73_Sh1,P8,"CD74",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(24000)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73_Sh1,P8,"CD75",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(26400)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73_Sh1,P8,"CD73",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(26400)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73_Sh1,P8,"CD74",1,{LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(26400)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73_Sh1,P8,"CD75",1,{LMTable="MAX",RepeatType="Nothing"}) 
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,(19200)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73_Sh1,P8,"CD73",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(21600)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73_Sh1,P8,"CD74",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(24000)//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)"},CD73_Sh1,P8,"CD75",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(26400)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73_Sh1,P8,"CD73",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(26400)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73_Sh1,P8,"CD74",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,(26400)//0x1D,AtLeast)},{"Hyperion (Battlecruiser)"},CD73_Sh1,P8,"CD75",1,{SizeTable=150,LMTable="MAX",RepeatType="Nothing"}) 
+
+
+
+CIfEnd()
+CD59 = CIf_GunTrig(P8, "Terran Factory", "CD59",500,19);
+
+SH_R1HD = CSMakeStar(5,135,64,0,CS_Level("Star",5,4),CS_Level("Star",5,3)) 
+SH_R1LN = CSMakeStar(6,135,64,0,CS_Level("Star",6,4),CS_Level("Star",6,3)) 
+SH_R2HD = CSMakeLine(1,32,0,CS_Level("Line",1,12),0)
+SH_RAHD = CS_MoveCenter(SH_R1HD,0,192)
+SH_RALN = CS_MoveCenter(SH_R1LN,0,192)
+
+SH_rhegbE = CSMakeStar(5,135,64,0,CS_Level("Star",5,4),CS_Level("Star",5,3)) 
+
+SH_rhegbHD = CS_Merge(SH_R2HD,SH_RAHD) -- 하드
+
+SH_rhegbLN = CS_Merge(SH_R2HD,SH_RALN) -- 루나틱
+
+
+CD5960_Sh = CS_RatioXY(CS_Rotate(CS_MoveXY(SH_rhegbLN,0,-200),-45), 0.5, 0.5)
+CD59_Sh = CSMakePolygon(6, 128, 0, 7, 1)
+
+function GunPlot(GCTime,ShapeT,CrLoc,CUT,Eff,Color,OrderT)
+	if Color == nil then Color = 0 end
+	G_CB_TScanEff({CD(GunTrigGCcode,GCTime,AtLeast)}, {ShapeT}, CrLoc, Eff,1,{LMTable="MAX"},Color)
+	G_CB_TSetSpawn({CD(GunTrigGCcode,GCTime+30,AtLeast)},CUT,ShapeT,P8,CrLoc,1,{LMTable="MAX",Order=OrderT}) 
+end
+
+GunPlot(40,CD5960_Sh,"CD59",{"Jim Raynor (Vulture)"},332,0,{Attack,"CD59"})
+GunPlot(340,CD5960_Sh,"CD59",{"Edmund Duke (Siege Tank)"},333,0,{Attack,"CD59"})
+GunPlot(640,CD5960_Sh,"CD59",{"Edmund Duke (Siege Tank)"},334,0,{Attack,"CD59"})
+GunPlot(40,CD59_Sh,"CD59",{"Norad II (Battlecruiser)"},60,0,{Attack,"CD59"})
+GunPlot(640,CD59_Sh,"CD59",{"Norad II (Battlecruiser)"},60,0,{Attack,"CD59"})
+
 
 CIfEnd()
 
-CD60 = CIf_GunTrig(P8, "Terran Barracks", "CD60",90000//0x1D,19);
+CD60 = CIf_GunTrig(P8, "Terran Barracks", "CD60",500,19);
 
+
+GunPlot(40,CD5960_Sh,"CD60",{"Gui Montag (Firebat)",},213,0,{Attack,"CD60"})
+GunPlot(340,CD5960_Sh,"CD60",{"Sarah Kerrigan (Ghost)"},214,0,{Attack,"CD60"})
+GunPlot(640,CD5960_Sh,"CD60",{"Hyperion (Battlecruiser)"},215,0,{Attack,"CD60"})
+GunPlot(40,CD59_Sh,"CD60",{"Norad II (Battlecruiser)"},60,0,{Attack,"CD60"})
+GunPlot(640,CD59_Sh,"CD60",{"Norad II (Battlecruiser)"},60,0,{Attack,"CD60"})
 CIfEnd()
 
-CD59 = CIf_GunTrig(P8, "Terran Factory", "CD59",90000//0x1D,19);
+CD56_Sh = CSMakeCircle(6, 240, 0, 7, 1)
+CD56Sh_T = {}
+for i = 0, 7 do
+	table.insert(CD56Sh_T, CS_RatioXY(CS_Rotate(CD56_Sh,i*32),1-(0.12*i),1-(0.12*i)))
 
-CIfEnd()
+end
+CD56_Sh_2 = CS_OverlapX(table.unpack(CD56Sh_T))
+CD56_Sh_3 = CS_OverlapX(CS_Rotate(CD56_Sh,32),CS_RatioXY(CS_Rotate(CD56_Sh,64),1-(0.5),1-(0.5)))
+
 
 CD56 = CIf_GunTrig(P8, "Norad II (Crashed Battlecruiser)", "CD56",90000//0x1D,20);
+CD56_Sh= CS_Reverse(CD218Sh_2)
+G_CB_TScanEff({CD(GunTrigGCcode,(3840//0x1D),AtLeast)}, {CD56_Sh}, "CD56", 391,1,{LMTable=6},16)
+G_CB_TSetSpawn({CD(GunTrigGCcode,7680//0x1D,AtLeast)},{"Devouring One (Zergling)","Kukulza (Mutalisk)"},CD56_Sh,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,15360//0x1D,AtLeast)},{"Hunter Killer (Hydralisk)","Kukulza (Guardian)"},CD56_Sh,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,23040//0x1D,AtLeast)},{"Alan Schezar (Goliath)","Tom Kazansky (Wraith)"},CD56_Sh_2,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,30720//0x1D,AtLeast)},{"Sarah Kerrigan (Ghost)","Tom Kazansky (Wraith)"},CD56_Sh_2,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,38400//0x1D,AtLeast)},{"Fenix (Dragoon)","Mojo (Scout)"},CD56_Sh_2,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,46080//0x1D,AtLeast)},{"Fenix (Zealot)","Mojo (Scout)"},CD56_Sh_2,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,53760//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},CD56_Sh_3,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,53760//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)","Danimoth (Arbiter)"},CD56_Sh_2,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,61440//0x1D,AtLeast)},{"Edmund Duke (Siege Mode)","Hyperion (Battlecruiser)"},CD56_Sh_2,P8,"CD56",1,{LMTable="MAX",Order={Patrol,"CD56"}}) 
 
-CIfEnd()
-CD224 = CIf_GunTrig(P8, "Protoss Nexus", "CD224",90000//0x1D,21);
+G_CB_TScanEff({CD(GunTrigGCcode,(38400//0x1D),AtLeast)}, {CD56_Sh_3}, "CD56", 318,1,{LMTable="MAX"},0)
+G_CB_TScanEff({CD(GunTrigGCcode,(40320//0x1D),AtLeast)}, {CD56_Sh_3}, "CD56", 318,1,{LMTable="MAX"},13)
+G_CB_TScanEff({CD(GunTrigGCcode,(42240//0x1D),AtLeast)}, {CD56_Sh_3}, "CD56", 318,1,{LMTable="MAX"},16)
+G_CB_TScanEff({CD(GunTrigGCcode,(44160//0x1D),AtLeast)}, {CD56_Sh_3}, "CD56", 318,1,{LMTable="MAX"},15)
+G_CB_TScanEff({CD(GunTrigGCcode,(46080//0x1D),AtLeast)}, {CD56_Sh_3}, "CD56", 318,1,{LMTable="MAX"},16)
+G_CB_TScanEff({CD(GunTrigGCcode,(48000//0x1D),AtLeast)}, {CD56_Sh_3}, "CD56", 318,1,{LMTable="MAX"},13)
+G_CB_TScanEff({CD(GunTrigGCcode,(49920//0x1D),AtLeast)}, {CD56_Sh_3}, "CD56", 318,1,{LMTable="MAX"},0)
+
 
 CIfEnd()
 
 CD36 = CIf_GunTrig(P8, "Stasis Cell/Prison", "CD36",90000//0x1D,22);
 
+CD36_ShL1 = CS_SortR(CSMakeLine(2, 32, 90, 19, 0),0)
+CD36_ShL2 = CS_SortR(CSMakeLine(2, 32, 90, 19, 0),1)
+-- Y -32*3 ~ 32*5
+
+function YSS_Cr(Time,Shape,CUT,Eff)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+0)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,-32*3}},13)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+410)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,-32*2}},0)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+830)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,-32*1}},16)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+1240)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,0}},10)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+1650)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,32*1}},15)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+2070)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,32*2}},10)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+2480)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,32*3}},16)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+2900)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,32*4}},0)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+3310)//0x1D,AtLeast)}, {Shape}, "CD36", Eff,1,{LMTable=2,DistanceXY={0,32*5}},13)
+	
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+0+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,-32*3},Order={Patrol,"CD36"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+410+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,-32*2},Order={Patrol,"CD36"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+830+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,-32*1},Order={Patrol,"CD36"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+1240+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,0},Order={Patrol,"CD36"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+1650+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,32*1},Order={Patrol,"CD36"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+2070+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,32*2},Order={Patrol,"CD36"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+2480+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,32*3},Order={Patrol,"CD36"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+2900+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,32*4},Order={Patrol,"CD36"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+3310+1650)//0x1D,AtLeast)},CUT,Shape,P8,"CD36",1,{LMTable=2,DistanceXY={0,32*5},Order={Patrol,"CD36"}}) 
+end
+
+YSS_Cr(0,CD36_ShL1,{"Kukulza (Mutalisk)"},59)
+YSS_Cr(3310,CD36_ShL1,{"Kukulza (Mutalisk)"},59)
+YSS_Cr(6630,CD36_ShL2,{"Tassadar/Zeratul (Archon)"},214)
+YSS_Cr(9950,CD36_ShL2,{"Hyperion (Battlecruiser)"},333)
+YSS_Cr(13270,CD36_ShL2,{"Mojo (Scout)"},10)
+YSS_Cr(16590,CD36_ShL2,{"Tom Kazansky (Wraith)"},4)
+YSS_Cr(19910,CD36_ShL2,{"Danimoth (Arbiter)"},60)
+YSS_Cr(23220,CD36_ShL2,{"Gantrithor (Carrier)"},334)
+YSS_Cr(26540,CD36_ShL2,{"Edmund Duke (Siege Mode)"},318)
+
 CIfEnd()
 
 
+CD224 = CIf_GunTrig(P8, "Protoss Nexus", "CD224",90000//0x1D,21);
+
+CIfEnd()
 CD30 = CIf_GunTrig(P8, "Zerg Overmind", "CD30",90000//0x1D,25);
 
+CD30_Sh1=CSMakeStar(4,135,96,180,CS_Level("Star",4,1),CS_Level("Star",4,0))
+CD30_Sh2=CSMakeStar(4,135,96,180,CS_Level("Star",4,2),CS_Level("Star",4,1))
+CD30_Sh3=CSMakeStar(4,135,96,180,CS_Level("Star",4,3),CS_Level("Star",4,2))
+CD30_Sh4=CSMakeStar(4,135,96,180,CS_Level("Star",4,4),CS_Level("Star",4,3))
+function OvmEff(Time,Eff)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+0)//0x1D,AtLeast)}, {CD30_Sh1}, "CD73", Eff,1,{LMTable="MAX",DistanceXY={0,-32*3}},0)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+450)//0x1D,AtLeast)}, {CD30_Sh2}, "CD73", Eff,1,{LMTable="MAX",DistanceXY={0,-32*2}},10)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+900)//0x1D,AtLeast)}, {CD30_Sh3}, "CD73", Eff,1,{LMTable="MAX",DistanceXY={0,-32*1}},16)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+1360)//0x1D,AtLeast)}, {CD30_Sh4}, "CD73", Eff,1,{LMTable="MAX",DistanceXY={0,0}},13)
+end
+for j,k in pairs({1810,3630,5450,7270,9090,10900,12720}) do
+	OvmEff(k,559)
+end
+for j,k in pairs({16360,18180,20000,21810,23630,25450,27270,29090,30900,32720,34540,36360,38180,40000,41810}) do
+	OvmEff(k,545)
+end
+
+
+for j,k in pairs({45450,47270,49090,50900,52720,54540,56360}) do
+	OvmEff(k,544)
+end
+
+for j,k in pairs({60000,61810,63630,65450,67270,69090,70900,72720}) do
+	OvmEff(k,512)
+end
+for j,k in pairs({74540,76360,78180,80000,81810,83630,85450}) do
+	OvmEff(k,981)
+end
+
+--CD5960_Sh ratio *2
+
+
+
+--[[
+
+
+
+
+		Deaths(P6, AtLeast, 50, "Terran Nuclear Silo");
+
+		CreateUnit(24, "Hunter Killer (Hydralisk)", "CD31", P8);
+		CreateUnit(20, "Kukulza (Guardian)", "CD31", P8);
+
+		CreateUnit(24, "Hunter Killer (Hydralisk)", "CD32", P8);
+		CreateUnit(20, "Kukulza (Guardian)", "CD32", P8);
+
+		CreateUnit(24, "Hunter Killer (Hydralisk)", "CD33", P8);
+		CreateUnit(20, "Kukulza (Guardian)", "CD33", P8);
+
+
+
+		
+		Deaths(P6, AtLeast, 150, "Zerg Ultralisk Cavern");
+
+		CreateUnit(16, "Gui Montag (Firebat)", "CD31", P8);
+		CreateUnit(13, "Hyperion (Battlecruiser)", "CD31", P8);
+
+		CreateUnit(16, "Gui Montag (Firebat)", "CD32", P8);
+		CreateUnit(13, "Hyperion (Battlecruiser)", "CD32", P8);
+
+		CreateUnit(16, "Gui Montag (Firebat)", "CD33", P8);
+		CreateUnit(12, "Hyperion (Battlecruiser)", "CD33", P8);
+
+
+		
+		Deaths(P6, AtLeast, 300, "Zerg Cerebrate Daggoth");
+
+		CreateUnit(16, "Tassadar/Zeratul (Archon)", "CD31", P8);
+		CreateUnit(12, "Gantrithor (Carrier)", "CD31", P8);
+
+		CreateUnit(16, "Tassadar/Zeratul (Archon)", "CD32", P8);
+		CreateUnit(12, "Gantrithor (Carrier)", "CD32", P8);
+
+		CreateUnit(16, "Tassadar/Zeratul (Archon)", "CD33", P8);
+		CreateUnit(12, "Gantrithor (Carrier)", "CD33", P8);
+
+		Deaths(P6, AtLeast, 400, "Zerg Evolution Chamber");
+		
+		CreateUnit(40, "Edmund Duke (Siege Mode)", "CD31", P8);
+		CreateUnit(40, "Edmund Duke (Siege Mode)", "CD32", P8);
+		CreateUnit(40, "Edmund Duke (Siege Mode)", "CD33", P8);
+
+
+
+
+]]
 CIfEnd()
 
 --__MM.ogg
 
-ICD = CIf_GunTrig(P7, "Terran Supply Depot", "ICD",90000//0x1D,nil);--서플 뚱이에서 묵찌빠로 변경
+ICD = CIf_GunTrig(P7, "Terran Supply Depot", "ICD",200,nil);--서플 뚱이에서 묵찌빠로 변경
+
+--해당지역에 아군유닛이 있을경우 아덴이, 없을경우 시즈탱크를 소환함.
+
+CIfOnce(FP)
+ICDArea1Chk = CreateCcode()--CD3 Chk
+ICDArea2Chk = CreateCcode()--CD37 Chk
+ICDArea3Chk = CreateCcode()--CD4 Chk
+ICDArea4Chk = CreateCcode()--CD38 Chk
+ICDArea5Chk = CreateCcode()--Hero Chk
+TriggerX(FP,{Bring(Force1, AtLeast, 1, "Men", "CD3")},{SetCD(ICDArea1Chk,1)})
+TriggerX(FP,{Bring(Force1, AtLeast, 1, "Men", "CD37")},{SetCD(ICDArea2Chk,1)})
+TriggerX(FP,{Bring(Force1, AtLeast, 1, "Men", "CD4")},{SetCD(ICDArea3Chk,1)})
+TriggerX(FP,{Bring(Force1, AtLeast, 1, "Men", "CD38")},{SetCD(ICDArea4Chk,1)})
+TriggerX(FP,{Bring(Force1, AtLeast, 1, "Men", "Hero")},{SetCD(ICDArea5Chk,1)})
+CIfEnd()
+
+ICDStar = CSMakeStar(5,135,96,180,CS_Level("Star",5,3),0)
+ICDStar2 = CSMakeStar(5,135,128,180,CS_Level("Star",5,2),0)
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast),CD(ICDArea2Chk,0)},{"Edmund Duke (Siege Mode)"},ICDStar,P8,"CD37",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast),CD(ICDArea4Chk,0)},{"Edmund Duke (Siege Mode)"},ICDStar,P8,"CD38",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast),CD(ICDArea5Chk,0)},{"Edmund Duke (Siege Mode)"},ICDStar,P8,"Hero",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast),CD(ICDArea2Chk,1)},{30},ICDStar,P8,"CD37",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast),CD(ICDArea4Chk,1)},{30},ICDStar,P8,"CD38",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast),CD(ICDArea5Chk,1)},{30},ICDStar,P8,"Hero",1,{LMTable=1}) 
+
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast)},{"Hyperion (Battlecruiser)"},ICDStar2,P8,"CD37",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast)},{"Hyperion (Battlecruiser)"},ICDStar2,P8,"CD38",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,0,AtLeast)},{"Hyperion (Battlecruiser)"},ICDStar2,P8,"Hero",1,{LMTable=1}) 
+
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,150,AtLeast),CD(ICDArea1Chk,0)},{"Edmund Duke (Siege Mode)"},ICDStar,P8,"CD3",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,150,AtLeast),CD(ICDArea3Chk,0)},{"Edmund Duke (Siege Mode)"},ICDStar,P8,"CD4",1,{LMTable=1}) 
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,150,AtLeast),CD(ICDArea1Chk,1)},{30},ICDStar,P8,"CD3",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,150,AtLeast),CD(ICDArea3Chk,1)},{30},ICDStar,P8,"CD4",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,150,AtLeast)},{30},ICDStar,P8,"HZ",1,{LMTable="MAX"}) 
+
+G_CB_TSetSpawn({CD(GunTrigGCcode,150,AtLeast)},{"Hyperion (Battlecruiser)"},ICDStar2,P8,"CD3",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,150,AtLeast)},{"Hyperion (Battlecruiser)"},ICDStar2,P8,"CD4",1,{LMTable=1}) 
+G_CB_TSetSpawn({CD(GunTrigGCcode,150,AtLeast)},{"Hyperion (Battlecruiser)"},ICDStar2,P8,"HZ",1,{LMTable=1}) 
 
 Trigger2X(FP,{},{
 	RotatePlayer({PlayWAVX("staredit\\wav\\__MM.ogg");PlayWAVX("staredit\\wav\\__MM.ogg");}, HumanPlayers, FP);
@@ -1378,9 +1658,8 @@ CD48 = CIf_GunTrig(P8, "Zerg Overmind (With Shell)", "CD48",90000//0x1D,16);
 CD48Sh_1 = CS_FillPathXY({4   ,{1056, 928},{608, 1184},{192, 928},{608, 704}}, 1, 64, 32, 0)
 CD48Sh_2 = CS_FillPathXY({4   ,{1056, 928},{608, 1184},{192, 928},{608, 704}}, 1, 96, 64, 0)
 CD48Sh_Eff1 = CS_Reverse(CSMakeCircle(8, 96, 0, PlotSizeCalc(8, 12), 0))
-G_CB_TScanEff({}, {CD48Sh_Eff1}, "CD48", 391,1,{LMTable=6},10)
+G_CB_TScanEff({}, {CD48Sh_Eff1}, "CD48", 391,1,{LMTable=12},10)
 
---CD48 >> CD28 >> CD29
 
 --[[
 0
@@ -1389,12 +1668,44 @@ G_CB_TScanEff({}, {CD48Sh_Eff1}, "CD48", 391,1,{LMTable=6},10)
 1050
 1330
 ]]
-function BlingSEff(Time,EffID)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+0)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD43", EffID,1,{LMTable="MAX",SizeTable=50},13)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+380)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD44", EffID,1,{LMTable="MAX",SizeTable=50},0)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+760)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD45", EffID,1,{LMTable="MAX",SizeTable=50},16)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+1050)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD46", EffID,1,{LMTable="MAX",SizeTable=50},17)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+1330)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD47", EffID,1,{LMTable="MAX",SizeTable=50},15)
+function BlingSEff(Time,EffID,AllOp,ColorReset)
+	local CT = {
+		13,
+		0,
+		16,
+		17,
+		15
+	}
+	local LT = {
+		Time+0,
+		Time+380,
+		Time+760,
+		Time+1050,
+		Time+1330
+	}
+	if AllOp == 1 then
+		LT = {
+			Time,
+			Time,
+			Time,
+			Time,
+			Time
+		}
+	end
+	if ColorReset == 1 then
+		CT = {
+			0,
+			0,
+			0,
+			0,
+			0
+		}
+	end
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[1])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD43", EffID,1,{LMTable="MAX",SizeTable=50},CT[1])
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[2])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD44", EffID,1,{LMTable="MAX",SizeTable=50},CT[2])
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[3])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD45", EffID,1,{LMTable="MAX",SizeTable=50},CT[3])
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[4])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD46", EffID,1,{LMTable="MAX",SizeTable=50},CT[4])
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[5])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD47", EffID,1,{LMTable="MAX",SizeTable=50},CT[5])
 end
 function BlingSEff2(Time,EffID)
 	G_CB_TScanEff({CD(GunTrigGCcode,(Time+0)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD43", EffID,1,{LMTable="MAX",SizeTable=50},13)
@@ -1403,12 +1714,29 @@ function BlingSEff2(Time,EffID)
 	G_CB_TScanEff({CD(GunTrigGCcode,(Time+760+380)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD47", EffID,1,{LMTable="MAX",SizeTable=50},15)
 end
 
-function BlingSUnit(Time,CUT)
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+0)//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD43",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+380)//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD44",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+760)//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD45",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+1050)//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD46",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
-	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+1330)//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD47",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
+
+function BlingSUnit(Time,CUT,AllOp)
+	local LT = {
+		Time+0,
+		Time+380,
+		Time+760,
+		Time+1050,
+		Time+1330
+	}
+	if AllOp == 1 then
+		LT = {
+			Time,
+			Time,
+			Time,
+			Time,
+			Time
+		}
+	end
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(LT[1])//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD43",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(LT[2])//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD44",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(LT[3])//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD45",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(LT[4])//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD46",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,(LT[5])//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD47",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
 end
 function BlingSUnit2(Time,CUT)
 	G_CB_TSetSpawn({CD(GunTrigGCcode,(Time+0)//0x1D,AtLeast)},CUT,ICDC_Sh3,P8,"CD43",1,{SizeTable=50,LMTable="MAX",Order={Attack,"CD48"}}) 
@@ -1421,192 +1749,76 @@ for j,k in pairs({1520,3050,4580,6110,7640,9170,10700}) do
 	BlingSEff(k,332)
 	BlingSUnit(k,{"Mojo (Scout)"})
 end
-
+BlingSEff(12200,318,1,1)
+BlingSUnit(12200,{"Norad II (Battlecruiser)"},1)
 for j,k in pairs({13750,15280,16810,18340,19870,21400,22930,24450,25980,27510,29040,30570,32100,33630,35150,36680,38210,39740,41270,42800,44330,45860,47380}) do
 	BlingSEff(k,333)
-	BlingSUnit(k,{"Tom Kazansky (Wraith)"})
+	BlingSUnit(k,{30})
 end
 
+BlingSEff(48910,4,1)
+BlingSEff(49290,10,1)
+BlingSEff(49680,318,1,1)
+BlingSUnit(49680,{"Norad II (Battlecruiser)"},1)
 for j,k in pairs({50440,51970,53500,55030,56560,58080,59610}) do
 	BlingSEff2(k,334)
 	BlingSUnit2(k,{"Hyperion (Battlecruiser)"})
 end
+BlingSEff(61140,318,1,1)
+BlingSUnit(61140,{"Norad II (Battlecruiser)"},1)
+BlingSUnit(61140,{30},1)
+
 for j,k in pairs({62670,64200,65730,67260,68790,70310,71840,73370,74900,76430,77960,79490,81010,82540,84070,85600}) do
 	BlingSEff(k,60)
 	BlingSUnit(k,{"Mojo (Scout)"})
-	BlingSUnit(k,{"Tom Kazansky (Wraith)"})
+	BlingSUnit(k,{30})
 	BlingSUnit(k,{"Hyperion (Battlecruiser)"})
 end
+TriggerX(FP,{CD(GunTrigGCcode,85600//0x1D,AtMost)},{ModifyUnitEnergy(All, "Tom Kazansky (Wraith)", P8, 64, 0)},{preserved})
 
---[[
-
-		Deaths(P6, AtLeast, 100, "Terran Covert Ops");
-
-		CreateUnit(24, "Fenix (Zealot)", "CD28", P8);
-		CreateUnit(24, "Fenix (Dragoon)", "CD28", P8);
-		CreateUnit(12, "Mojo (Scout)", "CD28", P8);
-		CreateUnit(10, "Gantrithor (Carrier)", "CD28", P8);
-		Order("Fenix (Zealot)", P8, "CD28", Patrol, "CD29");
-		Order("Fenix (Dragoon)", P8, "CD28", Patrol, "CD29");
-		Order("Mojo (Scout)", P8, "CD28", Attack, "CD29");
-		Order("Gantrithor (Carrier)", P8, "CD28", Attack, "CD29");
-
-		Deaths(P6, AtLeast, 100, "Terran Physics Lab");
-
-		CreateUnit(24, "Fenix (Zealot)", "CD29", P8);
-		CreateUnit(24, "Fenix (Dragoon)", "CD29", P8);
-		CreateUnit(12, "Mojo (Scout)", "CD29", P8);
-		CreateUnit(10, "Gantrithor (Carrier)", "CD29", P8);
-		CreateUnit(24, "Fenix (Zealot)", "CD48", P8);
-		CreateUnit(24, "Fenix (Dragoon)", "CD48", P8);
-		CreateUnit(12, "Mojo (Scout)", "CD48", P8);
-		CreateUnit(10, "Gantrithor (Carrier)", "CD48", P8);
-		Order("Fenix (Zealot)", P8, "CD29", Patrol, "CD28");
-		Order("Fenix (Dragoon)", P8, "CD29", Patrol, "CD28");
-		Order("Mojo (Scout)", P8, "CD29", Attack, "CD28");
-		Order("Gantrithor (Carrier)", P8, "CD29", Attack, "CD28");
+--CD48 >> CD28 >> CD29
+function BlingWHole(Time,Shape,CUT)
+	G_CB_TSetSpawn({CD(GunTrigGCcode,Time//0x1D,AtLeast)},CUT,Shape,P8,"CD48",1,{LMTable="MAX",Order={Attack,"CD28"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,Time//0x1D,AtLeast)},CUT,Shape,P8,"CD28",1,{LMTable="MAX",Order={Attack,"CD29"}}) 
+	G_CB_TSetSpawn({CD(GunTrigGCcode,Time//0x1D,AtLeast)},CUT,Shape,P8,"CD29",1,{LMTable="MAX",Order={Attack,"CD48"}}) 
+	
+end
+CD48_CD39Sh = CS_MoveXY(CD39Sh,-800,-1744)--28
+CD48_CD40Sh = CS_MoveXY(CD40Sh,-1472,-1712)--23
+BlingWHole(1520,CD48_CD39Sh,{"Fenix (Zealot)","Fenix (Dragoon)"})
+BlingWHole(13750,CD48_CD40Sh,{"Gantrithor (Carrier)"})
 
 
-
-		
-		Deaths(P6, AtLeast, 250, "Terran Covert Ops");
-
-		CreateUnit(16, "Edmund Duke (Siege Mode)", "CD28", P8);
-		CreateUnit(12, "Alan Schezar (Goliath)", "CD28", P8);
-		CreateUnit(14, "Tom Kazansky (Wraith)", "CD28", P8);
-		CreateUnit(10, "Danimoth (Arbiter)", "CD28", P8);
-		Order("Alan Schezar (Goliath)", P8, "CD28", Patrol, "CD29");
-		Order("Tom Kazansky (Wraith)", P8, "CD28", Attack, "CD29");
-		Order("Danimoth (Arbiter)", P8, "CD28", Attack, "CD29");
-
-		Deaths(P6, AtLeast, 250, "Terran Physics Lab");
-
-		CreateUnit(16, "Edmund Duke (Siege Mode)", "CD29", P8);
-		CreateUnit(12, "Alan Schezar (Goliath)", "CD29", P8);
-		CreateUnit(14, "Tom Kazansky (Wraith)", "CD29", P8);
-		CreateUnit(10, "Danimoth (Arbiter)", "CD29", P8);
-		CreateUnit(16, "Edmund Duke (Siege Mode)", "CD48", P8);
-		CreateUnit(12, "Alan Schezar (Goliath)", "CD48", P8);
-		CreateUnit(14, "Tom Kazansky (Wraith)", "CD48", P8);
-		CreateUnit(10, "Danimoth (Arbiter)", "CD48", P8);
-		Order("Alan Schezar (Goliath)", P8, "CD29", Patrol, "CD28");
-		Order("Tom Kazansky (Wraith)", P8, "CD29", Attack, "CD28");
-		Order("Rhynadon (Badlands)", P8, "CD29", Attack, "CD28");
+BlingWHole(19870,CD48_CD39Sh,{"Edmund Duke (Siege Mode)","Mojo (Scout)"})
+BlingWHole(21400,CD48_CD40Sh,{"Edmund Duke (Siege Mode)"})
+BlingWHole(22930,CD48_CD39Sh,{"Alan Schezar (Goliath)","Tom Kazansky (Wraith)"})
+BlingWHole(24450,CD48_CD40Sh,{"Alan Schezar (Goliath)"})
 
 
+CD48_WSh1 = CS_Reverse(CSMakeCircle(6, 48, 0, PlotSizeCalc(6, 3), 0))
 
-		
-		Deaths(P6, AtLeast, 400, "Terran Covert Ops");
+BlingWHole(25980,CD48_WSh1,{"Danimoth (Arbiter)"})
+BlingWHole(32100,CD48_WSh1,{"Tassadar/Zeratul (Archon)"})
+BlingWHole(38210,CD48_WSh1,{"Gui Montag (Firebat)"})
+BlingWHole(44330,CD48_WSh1,{"Hyperion (Battlecruiser)"})
+G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},16)
+G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},10)
+G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},17)
+CD48_CD12Sh = CS_Reverse(CD12Sh)
+BlingWHole(50440,CD48_WSh1,{"Edmund Duke (Siege Tank)"})
+BlingWHole(56560,CD48_WSh1,{"Zeratul (Dark Templar)"})
+G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},16)
+G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},10)
+G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},13)
 
-		CreateUnit(20, "Tassadar/Zeratul (Archon)", "CD28", P8);
-		CreateUnit(14, "Gui Montag (Firebat)", "CD28", P8);
-		CreateUnit(12, "Hyperion (Battlecruiser)", "CD28", P8);
-		Order("Tassadar/Zeratul (Archon)", P8, "CD28", Patrol, "CD29");
-		Order("Gui Montag (Firebat)", P8, "CD28", Patrol, "CD29");
-		Order("Hyperion (Battlecruiser)", P8, "CD28", Attack, "CD29");
+CD48_WSh2 = CSMakePolygon(6, 32, 0, PlotSizeCalc(6,4), PlotSizeCalc(6,3))
 
-		Deaths(P6, AtLeast, 400, "Terran Physics Lab");
+BlingWHole(62670,CD48_WSh2,{"Zerg Broodling","Danimoth (Arbiter)"})
 
-		CreateUnit(20, "Tassadar/Zeratul (Archon)", "CD29", P8);
-		CreateUnit(14, "Gui Montag (Firebat)", "CD29", P8);
-		CreateUnit(13, "Hyperion (Battlecruiser)", "CD29", P8);
-		CreateUnit(20, "Tassadar/Zeratul (Archon)", "CD48", P8);
-		CreateUnit(14, "Gui Montag (Firebat)", "CD48", P8);
-		CreateUnit(13, "Hyperion (Battlecruiser)", "CD48", P8);
-		Order("Tassadar/Zeratul (Archon)", P8, "CD29", Patrol, "CD28");
-		Order("Gui Montag (Firebat)", P8, "CD29", Patrol, "CD28");
-		Order("Hyperion (Battlecruiser)", P8, "CD29", Attack, "CD28");
+CD48_WSh3 = CSMakePolygon(6, 128, 0, PlotSizeCalc(6,1), 0)
 
-		
-
-		Deaths(P6, AtLeast, 600, "Terran Covert Ops");
-
-		CreateUnit(20, "Zeratul (Dark Templar)", "CD28", P8);
-		CreateUnit(14, "Edmund Duke (Siege Tank)", "CD28", P8);
-		CreateUnit(20, "Tom Kazansky (Wraith)", "CD28", P8);
-		Order("Zeratul (Dark Templar)", P8, "CD28", Patrol, "CD29");
-		Order("Tom Kazansky (Wraith)", P8, "CD28", Attack, "CD29");
-
-
-
-		Deaths(P6, AtLeast, 600, "Terran Physics Lab");
-
-		CreateUnit(20, "Zeratul (Dark Templar)", "CD29", P8);
-		CreateUnit(14, "Edmund Duke (Siege Tank)", "CD29", P8);
-		CreateUnit(20, "Tom Kazansky (Wraith)", "CD29", P8);
-		CreateUnit(20, "Zeratul (Dark Templar)", "CD48", P8);
-		CreateUnit(14, "Edmund Duke (Siege Tank)", "CD48", P8);
-		CreateUnit(20, "Tom Kazansky (Wraith)", "CD48", P8);
-		Order("Zeratul (Dark Templar)", P8, "CD29", Patrol, "CD28");
-		Order("Edmund Duke (Siege Tank)", P8, "CD29", Patrol, "CD28");
-		Order("Tom Kazansky (Wraith)", P8, "CD29", Attack, "CD28");
-
-
-
-		Deaths(P6, AtLeast, 800, "Terran Covert Ops");
-
-		CreateUnit(40, "Edmund Duke (Siege Mode)", "CD28", P8);
-		
-		Deaths(P6, AtLeast, 800, "Terran Physics Lab");
-
-		CreateUnit(40, "Edmund Duke (Siege Mode)", "CD29", P8);
-		CreateUnit(40, "Edmund Duke (Siege Mode)", "CD48", P8);
-
-		
-
-
-
-		
-		Deaths(P6, AtLeast, 950, "Terran Covert Ops");
-
-		CreateUnit(15, "Zerg Broodling", "CD28", P8);
-		CreateUnit(6, "Danimoth (Arbiter)", "CD28", P8);
-		CreateUnit(4, "Norad II (Battlecruiser)", "CD28", P8);
-		Order("Zerg Broodling", P8, "CD28", Attack, "CD29");
-		Order("Danimoth (Arbiter)", P8, "CD28", Attack, "CD29");
-		Order("Norad II (Battlecruiser)", P8, "CD28", Attack, "CD29");
-
-		
-		Deaths(P6, AtLeast, 950, "Terran Physics Lab");
-
-		CreateUnit(15, "Zerg Broodling", "CD29", P8);
-		CreateUnit(6, "Danimoth (Arbiter)", "CD29", P8);
-		CreateUnit(4, "Norad II (Battlecruiser)", "CD29", P8);
-		CreateUnit(15, "Zerg Broodling", "CD48", P8);
-		CreateUnit(6, "Danimoth (Arbiter)", "CD48", P8);
-		CreateUnit(4, "Norad II (Battlecruiser)", "CD48", P8);
-		Order("Zerg Broodling", P8, "CD29", Attack, "CD28");
-		Order("Danimoth (Arbiter)", P8, "CD29", Attack, "CD28");
-		Order("Norad II (Battlecruiser)", P8, "CD29", Attack, "CD28");
-
-
-		
-		Deaths(P6, AtLeast, 1100, "Terran Covert Ops");
-
-		CreateUnit(3, "Infested Kerrigan (Infested Terran)", "CD28", P8);
-		CreateUnit(3, "Infested Kerrigan (Infested Terran)", "CD28", P8);
-		CreateUnit(10, "Gantrithor (Carrier)", "CD28", P8);
-		Order("Gantrithor (Carrier)", P8, "CD28", Attack, "CD29");
-		Order("Infested Kerrigan (Infested Terran)", P8, "CD28", Attack, "CD29");
-		Order("Infested Kerrigan (Infested Terran)", P8, "CD28", Attack, "CD29");
-
-		Deaths(P6, AtLeast, 1100, "Terran Physics Lab");
-
-		CreateUnit(3, "Infested Kerrigan (Infested Terran)", "CD29", P8);
-		CreateUnit(3, "Infested Kerrigan (Infested Terran)", "CD29", P8);
-		CreateUnit(10, "Gantrithor (Carrier)", "CD29", P8);
-		CreateUnit(3, "Infested Kerrigan (Infested Terran)", "CD48", P8);
-		CreateUnit(3, "Infested Kerrigan (Infested Terran)", "CD48", P8);
-		CreateUnit(10, "Gantrithor (Carrier)", "CD48", P8);
-		Order("Gantrithor (Carrier)", P8, "CD29", Attack, "CD28");
-		Order("Infested Kerrigan (Infested Terran)", P8, "CD29", Attack, "CD28");
-		Order("Infested Kerrigan (Infested Terran)", P8, "CD29", Attack, "CD28");
-
-		
-
-
-]]
-
+BlingWHole(74900,CD48_WSh3,{"Infested Kerrigan (Infested Terran)"})
+BlingWHole(74900,CD48_WSh2,{"Gantrithor (Carrier)"})
 
 
 
@@ -1615,6 +1827,7 @@ CIfEnd()
 
 
 GBOSS = CIf_GunTrig(P8, "Protoss Temple", 64,90000//0x1D,24);
+--기본적인 틀은 기존 노라드가 스킬유닛이었던걸 멩스크로 대체함(노라드를 공격유닛으로 변경)
 
 CIfEnd()
 

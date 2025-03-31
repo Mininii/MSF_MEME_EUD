@@ -170,10 +170,10 @@ for i = 0, 4 do
 	CMov(FP,0x582174+(i*4),CanC)
 	CAdd(FP,0x582174+(i*4),CanC)
 	CMov(FP,0x582264,1500*2)
-	CMov(FP,0x5822C4,1500*2)
+	CMov(FP,0x5822C4,1500*2) 	
 	CMov(FP,0x582294,count)
 	CAdd(FP,0x582294,count)
-	CIf(FP,{Bring(i, AtLeast, 1, "Men", "Money");})
+	CIf(FP,{TTOR({Bring(i, AtLeast, 1, "Men", "Money");Bring(P8, AtMost, 0, "Protoss Temple", 64)})})
 	for p = 15, 0, -1 do --환전트리거
 	TriggerX(FP, {Score(i,Kills,AtLeast,1000*2^p);}, {SetScore(i,Subtract,1000*2^p,Kills);SetResources(i,Add,250*2^p,Ore);}, {preserved})
 	end
@@ -182,12 +182,12 @@ for i = 0, 4 do
 		CIf(FP,{CV(P1MValue,1,AtLeast)},{SubV(P1MValue,1)})
 		DisplayPrint(HumanPlayers,{"\x12",PName(i)," \x04Marine \x06DIE"},nil,{"staredit\\wav\\_9992.ogg","staredit\\wav\\_9992.ogg"})
 	else
-		CIf(FP,{Deaths(i, AtLeast, 1, "Terran Marine");},{SetDeaths(i, Subtract, 1, "Terran Marine")})
+		CIf(FP,{Deaths(i, AtLeast, 1, "Terran Marine");},{SetDeaths(i, Subtract, 1, "Terran Marine"),SetScore(i, Add, 1, Custom)})
 		DisplayPrint(HumanPlayers,{"\x12",PName(i)," \x04Marine \x06DIE"},nil,{"staredit\\wav\\_9992.ogg","staredit\\wav\\_9992.ogg"})
 		
 	end
 	CIfEnd()
-	CIf(FP,{Deaths(i, AtLeast, 1, "Jim Raynor (Marine)");},{SetDeaths(i, Subtract, 1, "Jim Raynor (Marine)")})
+	CIf(FP,{Deaths(i, AtLeast, 1, "Jim Raynor (Marine)");},{SetDeaths(i, Subtract, 1, "Jim Raynor (Marine)"),SetScore(i, Add, 2, Custom)})
 	DisplayPrint(HumanPlayers,{"\x12",PName(i)," \x04Jim Raynor \x06DIE"},nil,{"staredit\\wav\\_999.ogg","staredit\\wav\\_999.ogg"})
 	CIfEnd()
 
@@ -197,6 +197,26 @@ for i = 0, 4 do
 	if TestStart==1 then
 		DoActions(FP, {SetResources(i, Add, 99999999, Ore),}, 1)--SetInvincibility(Enable, "Buildings", Force2, 64)
 	end
+	TriggerX(FP,{Command(i, AtLeast, 1, "Terran Ghost")},{RemoveUnitAt(1, "Terran Ghost", "Anywhere", i);CreateUnit(1, "Jim Raynor (Marine)", "HZ", i);},{preserved})
+
+	TriggerX(FP,{DeathsX(i,AtLeast,1*16777216,12,0xFF000000);Bring(i, AtLeast, 1, "Terran Firebat", "Anywhere");},{
+		SetCp(i),
+		DisplayText("\x13\x07 BGM ON", 4);
+		SetCp(FP),
+		SetDeathsX(i,SetTo,0*16777216,12,0xFF000000);
+		SetDeaths(i, SetTo, 0, "Terran Firebat");
+		RemoveUnitAt(1, "Terran Firebat", "Anywhere", i);},{preserved})
+	TriggerX(FP,{DeathsX(i,Exactly,0*16777216,12,0xFF000000);Bring(i, AtLeast, 1, "Terran Firebat", "Anywhere");},{
+		SetCp(i),
+		DisplayText("\x13\x08 BGM OFF", 4);
+		SetCp(FP),
+		SetDeathsX(i,SetTo,1*16777216,12,0xFF000000);
+		SetDeaths(i, SetTo, 1, "Terran Firebat");
+		RemoveUnitAt(1, "Terran Firebat", "Anywhere", i);},{preserved})
+	
+
+
+
 
 	CIfEnd()
 
@@ -288,12 +308,14 @@ if Limit == 1 then
 
 	
 	CMov(FP,0x6509B0,CurrentOP)--상위플레이어 단락
-	CIfOnce(FP,Deaths(CurrentPlayer,AtLeast,1,208))
-	CMov(FP,0x6509B0,19025+9) --CUnit 시작지점 +19 (0x4C)
-	CWhile(FP,Memory(0x6509B0,AtMost,19025+9 + (84*1699)),{SetDeathsX(CurrentPlayer,SetTo,0,0,0xFF0000),SetMemory(0x6509b0,Add,84)})
-	CWhileEnd()
-	CMov(FP,0x6509B0,FP)
-	CIfEnd()
+
+	TriggerX(FP,{Deaths(CurrentPlayer,AtLeast,1,208)},{RemoveUnit(0, Force1),RemoveUnit(20, Force1)},{preserved})
+	--CIfOnce(FP,Deaths(CurrentPlayer,AtLeast,1,208))
+	--CMov(FP,0x6509B0,19025+9) --CUnit 시작지점 +19 (0x4C)
+	--CWhile(FP,Memory(0x6509B0,AtMost,19025+9 + (84*1699)),{SetDeathsX(CurrentPlayer,SetTo,0,0,0xFF0000),SetMemory(0x6509b0,Add,84)})
+	--CWhileEnd()
+	--CMov(FP,0x6509B0,FP)
+	--CIfEnd()
 
 		Trigger {
 			players = {FP},
@@ -355,8 +377,25 @@ if Limit == 1 then
 			end
 
 
+	--리더보드
+	LeaderBoardT = CreateCcode()
+	TriggerX(FP, {}, {AddCD(LeaderBoardT,1)}, {preserved})
+	TriggerX(FP, {CD(LeaderBoardT,1)}, {
+		LeaderBoardScore(Custom, "DIE");
+		LeaderBoardComputerPlayers(Disable);}, {preserved})
+	TriggerX(FP, {CD(LeaderBoardT,200)}, {
+		LeaderBoardScore(Kills, "Point");
+		LeaderBoardComputerPlayers(Disable);}, {preserved})
+	TriggerX(FP, {CD(LeaderBoardT,400)}, {
+		LeaderBoardKills("Any unit","Kills");
+		LeaderBoardComputerPlayers(Disable);}, {preserved})
+	TriggerX(FP, {CD(LeaderBoardT,600)}, {
+		LeaderBoardGreed(10000000);
+		LeaderBoardComputerPlayers(Disable);}, {preserved})
+	TriggerX(FP, {CD(LeaderBoardT,800)}, {SetCD(LeaderBoardT,0)}, {preserved})
 
-
+			
+			
 
 
 

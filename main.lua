@@ -26,11 +26,13 @@ end
 --PushErrorMsg(string.byte("	"))
 math.randomseed(322,322)
 
-TestSet(2)
+TestSet(0)
 if Limit == 1 then
 	BGMTimerForceReset = 1
+	GunBossTestMode = 1
 else
 	BGMTimerForceReset = 0
+	GunBossTestMode = 0
 end
 FP = P6
 SetForces({P1,P2,P3,P4,P5},{P7,P8},{P6},{},{P1,P2,P3,P4,P5,P6,P7,P8})

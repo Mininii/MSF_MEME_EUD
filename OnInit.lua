@@ -9,8 +9,8 @@ function OnInit()
 		if Limit == 1 then
 			DoActionsX(FP,{SetSwitch("Switch 253", Set)}) -- Limit설정
 		end
-		DoActionsX(FP, {SetMemory(0x5124F0,SetTo,0x1D)}, 1)
 	end
+	DoActionsX(FP, {SetMemory(0x5124F0,SetTo,0x1D)}, 1)
 
 	UnitRepIndex2 = CreateVar(FP)
 	RepHeroIndex = CreateVar(FP)
@@ -55,20 +55,60 @@ CSPlot(Shape4020,P4,20,0,{0,0},1,32,FP,{HumanCheck(P4, 1)})
 CSPlot(Shape5000,P5,00,0,{0,0},1,32,FP,{HumanCheck(P5, 1)})
 CSPlot(Shape5020,P5,20,0,{0,0},1,32,FP,{HumanCheck(P5, 1)})
 
+Trigger {
+	players = {FP},
+	conditions = {
+		Always();
+	},
+	actions = {
+		SetCp(P8),
+		RunAIScriptAt("Enter Closest Bunker", "ECB");
+		RunAIScriptAt("Enter Closest Bunker", "ECB1");
+		RunAIScriptAt("Enter Closest Bunker", "ECB2");
+		RunAIScriptAt("Enter Closest Bunker", "ECB3");
+		RunAIScriptAt("Enter Closest Bunker", "ECB4");
+		RunAIScriptAt("Enter Closest Bunker", "ECB5");
+		SetCp(FP),
+		ModifyUnitHangarCount(3, All, "Gantrithor (Carrier)", AllPlayers, "Anywhere");
+	},
+}
+if GunBossTestMode == 1 then
+	DoActions(FP, {
+		RemoveUnitAt(All, "Any unit", 137, Force2),
+		RemoveUnitAt(All, "Any unit", 139, Force2)
+	})
+end
+
 
 	CIfEnd()
 
-
-
-
 	CIfOnce(FP)
-	SizePatchArr = {48,53,54,55,56,62,11,8,12,21,28,29,70,82,81,86,88,50,25,80,87,98,30}
+	SizePatchArr = {48,53,54,55,56,62,11,8,12,21,28,29,70,82,81,86,88,50,25,80,87,98,30,"Gui Montag (Firebat)","Sarah Kerrigan (Ghost)","Alan Schezar (Goliath)","Jim Raynor (Vulture)","Tom Kazansky (Wraith)","Edmund Duke (Siege Tank)","Edmund Duke (Siege Mode)","Hyperion (Battlecruiser)","Norad II (Battlecruiser)","Zeratul (Dark Templar)","Tassadar (Templar)","Tassadar/Zeratul (Archon)","Fenix (Zealot)","Fenix (Dragoon)","Mojo (Scout)","Warbringer (Reaver)","Gantrithor (Carrier)","Danimoth (Arbiter)"}
 	for j,k in pairs(SizePatchArr) do
 		SetUnitsDatX(k, {SizeL = 4,SizeU = 4,SizeR = 4,	SizeD = 4,})
 	end
+	
+	SetUnitsDatX(0, {SizeL = 8, SizeU = 7, SizeR = 4, SizeD = 11})
+	SetUnitsDatX(20, {SizeL = 8, SizeU = 7, SizeR = 4, SizeD = 11})
 	DoActions2(FP, PatchArr)
 	DoActions2(FP, PatchArr2)
 	DoActions2(AllPlayers, PatchArrPrsv)
+	for i = 0, 4 do
+		
+	TriggerX(FP,{HumanCheck(i,1)},{SetCVar(FP,SetPlayers[2],Add,1)})
+	end
+	for j,k in pairs({P6,P9,P10,P11,P12}) do
+		TriggerX(FP,{HumanCheck(j-1,1),CV(SetPlayers,1)},{GiveUnits(1, 125, k, 64, j-1)})
+	end
+	DoActions(FP, {
+
+		RemoveUnit(125, P6),
+		RemoveUnit(125, P9),
+		RemoveUnit(125, P10),
+		RemoveUnit(125, P11),
+		RemoveUnit(125, P12)
+	})
+	
 
 
 	
@@ -80,7 +120,8 @@ CSPlot(Shape5020,P5,20,0,{0,0},1,32,FP,{HumanCheck(P5, 1)})
 	table.insert(RepArr,13)
 	condbox = {}
 	for j,k in pairs(RepArr) do
-		table.insert(condbox,CV(RepHeroIndex,k))
+		UnitID = ParseUnit(k)
+		table.insert(condbox,CV(RepHeroIndex,UnitID))
 	end
 	
 	f_Read(FP,_Add(CI,25),RepHeroIndex,nil,0xFF,1)
@@ -134,8 +175,9 @@ CSPlot(Shape5020,P5,20,0,{0,0},1,32,FP,{HumanCheck(P5, 1)})
 		SetMinimapColor(P6, SetTo, 154),
 		SetMinimapColor(P7, SetTo, 255),
 		SetMinimapColor(P8, SetTo, 128),
-		ModifyUnitHangarCount(2, All, "Gantrithor (Carrier)", AllPlayers, "Anywhere");
 	})
+	
+	
 
 	CIfEnd()
 end

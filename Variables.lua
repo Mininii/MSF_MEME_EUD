@@ -15,4 +15,5 @@ function Vars()
 	UnitIDArr = CreateFArr(1700, FP)
 	UnitPosArr = CreateFArr(1700, FP)
 	PlayerIDArr = CreateFArr(1700, FP)
+	SetPlayers = CreateVar(FP)
 end

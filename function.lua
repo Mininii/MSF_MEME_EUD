@@ -447,6 +447,14 @@ CIf(FP,{TMemoryX(_Add(RPtr,40),AtLeast,150*16777216,0xFF000000)})
 			Simple_SetLocX(FP,130,G_CB_BackupX,G_CB_BackupY,G_CB_BackupX,G_CB_BackupY,{Simple_CalcLoc(130,-4,-4,4,4)})
 			CTrigger(FP, {CV(Repeat_OrderType,0)}, {TOrder(RUID, RPID, 1, Attack, 131);}, {preserved})
 			CDoActions(FP,{TSetMemoryX(_Add(RPtr,8),SetTo,127*65536,0xFF0000),})
+			
+			CElseIfX_AddRepeatType(8,"SkillUnit")--RemoveTimer
+			f_Read(FP,_Add(RPtr,10),CPos)
+			Convert_CPosXY()
+			Simple_SetLocX(FP,0,CPosX,CPosY,CPosX,CPosY,{Simple_CalcLoc(0,-4,-4,4,4)})
+			CTrigger(FP, {CV(Repeat_OrderType,0)}, {TOrder(RUID, RPID, 1, Patrol, RLocV);}, {preserved})
+			CDoActions(FP,{TSetMemoryX(_Add(RPtr,8),SetTo,127*65536,0xFF0000),TSetMemoryX(_Add(RPtr,68),SetTo,15,0xFFFF)})
+
 			CElseX()
 				DoActions(FP,RotatePlayer({DisplayTextX("\x07『 \x08ERROR : \x04잘못된 RepeatType이 입력되었습니다! 스크린샷으로 제작자에게 제보해주세요!\x07 』",4),PlayWAVX("sound\\Misc\\Buzz.wav"),PlayWAVX("sound\\Misc\\Buzz.wav"),PlayWAVX("sound\\Misc\\Buzz.wav")},HumanPlayers,FP))
 			CIfXEnd()
@@ -1459,7 +1467,7 @@ function G_CB_TScanEff(Condition,G_CB_ShapeTable,CenterXY,ScanEffID,PreserveFlag
 		PP["EffColorMask"] = Mask
 	end
 
-	G_CB_TSetSpawn(Condition,x,G_CB_ShapeTable,P6,CenterXY,PreserveFlag,PP)
+	G_CB_TSetSpawn(Condition,x,G_CB_ShapeTable,P8,CenterXY,PreserveFlag,PP)
 	--P6, UID 33 고정
 end
 function G_CB_TSetSpawn(Condition,G_CB_CUTable,G_CB_ShapeTable,OwnerTable,CenterXY,PreserveFlag,G_CB_Property)

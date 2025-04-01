@@ -671,8 +671,8 @@ CIfEnd()
 CIf(FP,{CD(CRCDANY,40500 // 0x1D,AtLeast)})
 
 
-G_CB_TScanEff({CD(CRCDANY,40500 // 0x1D,AtLeast),CD(CRCDMode,0)}, {CSMakeCircle(6, 192, 0, PlotSizeCalc(6, 13), 0)}, {4032-(9*32),864}, 60, 1,{RepeatType=44})
-G_CB_TScanEff({CD(CRCDANY,40500 // 0x1D,AtLeast),CD(CRCDMode,1)}, {CSMakeCircle(6, 64, 0, PlotSizeCalc(6, 7), 0)}, {448,3888}, 60, 1,{RepeatType=44})
+G_CB_TScanEff({CD(CRCDANY,40500 // 0x1D,AtLeast),CD(CRCDMode,0)}, {CSMakeCircle(6, 192, 0, PlotSizeCalc(6, 13), 0)}, {4032-(9*32),864}, 60, 1,{RepeatType=44},nil,FP)
+G_CB_TScanEff({CD(CRCDANY,40500 // 0x1D,AtLeast),CD(CRCDMode,1)}, {CSMakeCircle(6, 64, 0, PlotSizeCalc(6, 7), 0)}, {448,3888}, 60, 1,{RepeatType=44},nil,FP)
 
 CMov(FP,0x6509B0,19025+25)
 CFor(FP, 19025+19, 19025+(1700*84)+19,84)
@@ -752,7 +752,7 @@ end
 G_CB_TSetSpawn({},{"Tom Kazansky (Wraith)"},ICDHeartX,P6,{2048,2048},1,{LMTable=6,RepeatType = "Nothing"})
 DoActionsX(FP, {AddCD(ICD1T,1)})
 
-G_CB_TScanEff({CD(ICD1T,15,AtLeast),CD(ICD1,10800//0x1D,AtLeast),CD(ICD1,21500//0x1D,AtMost)}, {HCCR}, {2048,2048}, 334)
+G_CB_TScanEff({CD(ICD1T,15,AtLeast),CD(ICD1,10800//0x1D,AtLeast),CD(ICD1,21500//0x1D,AtMost)}, {HCCR}, {2048,2048}, 334,nil,nil,nil,FP)
 TriggerX(FP, {CD(ICD1T,15,AtLeast)}, {SetCD(ICD1T,0)}, {preserved})
 TriggerX(FP, {CD(ICD1,10800//0x1D)}, {SetCp(P6),RunAIScriptAt(JYD, 64)})
 Trigger2X(FP, {CD(ICD1,10800//0x1D,AtLeast),CD(ICD1,21500//0x1D,AtMost)}, ActT,{preserved})
@@ -807,7 +807,7 @@ end
 G_CB_TSetSpawn({},{"Artanis (Scout)"},ICD2StarFillX,P6,{2048,2048},1,{LMTable=6,RepeatType = "Nothing"})
 DoActionsX(FP, {AddCD(ICD2T,1)})
 
-G_CB_TScanEff({CD(ICD2T,15,AtLeast),CD(CD77,10800//0x1D,AtLeast),CD(CD77,21500//0x1D,AtMost)}, {ICD2Star}, {2048,2048}, 215)
+G_CB_TScanEff({CD(ICD2T,15,AtLeast),CD(CD77,10800//0x1D,AtLeast),CD(CD77,21500//0x1D,AtMost)}, {ICD2Star}, {2048,2048}, 215,nil,nil,nil,FP)
 TriggerX(FP, {CD(ICD2T,15,AtLeast)}, {SetCD(ICD2T,0)}, {preserved})
 TriggerX(FP, {CD(CD77,10800//0x1D)}, {SetCp(P6),RunAIScriptAt(JYD, 64)})
 Trigger2X(FP, {CD(CD77,10800//0x1D,AtLeast),CD(CD77,21500//0x1D,AtMost)}, ActT,{preserved})
@@ -1721,7 +1721,7 @@ CD48 = CIf_GunTrig(P8, "Zerg Overmind (With Shell)", "CD48",90000//0x1D,16);
 CD48Sh_1 = CS_FillPathXY({4   ,{1056, 928},{608, 1184},{192, 928},{608, 704}}, 1, 64, 32, 0)
 CD48Sh_2 = CS_FillPathXY({4   ,{1056, 928},{608, 1184},{192, 928},{608, 704}}, 1, 96, 64, 0)
 CD48Sh_Eff1 = CS_Reverse(CSMakeCircle(8, 96, 0, PlotSizeCalc(8, 12), 0))
-G_CB_TScanEff({}, {CD48Sh_Eff1}, "CD48", 391,1,{LMTable=12},10)
+G_CB_TScanEff({}, {CD48Sh_Eff1}, "CD48", 391,1,{LMTable=12},10,FP)
 
 function BlingSEff(Time,EffID,AllOp,ColorReset)
 	local CT = {
@@ -1756,17 +1756,17 @@ function BlingSEff(Time,EffID,AllOp,ColorReset)
 			0
 		}
 	end
-	G_CB_TScanEff({CD(GunTrigGCcode,(LT[1])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD43", EffID,1,{LMTable="MAX",SizeTable=50},CT[1])
-	G_CB_TScanEff({CD(GunTrigGCcode,(LT[2])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD44", EffID,1,{LMTable="MAX",SizeTable=50},CT[2])
-	G_CB_TScanEff({CD(GunTrigGCcode,(LT[3])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD45", EffID,1,{LMTable="MAX",SizeTable=50},CT[3])
-	G_CB_TScanEff({CD(GunTrigGCcode,(LT[4])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD46", EffID,1,{LMTable="MAX",SizeTable=50},CT[4])
-	G_CB_TScanEff({CD(GunTrigGCcode,(LT[5])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD47", EffID,1,{LMTable="MAX",SizeTable=50},CT[5])
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[1])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD43", EffID,1,{LMTable="MAX",SizeTable=50},CT[1],FP)
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[2])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD44", EffID,1,{LMTable="MAX",SizeTable=50},CT[2],FP)
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[3])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD45", EffID,1,{LMTable="MAX",SizeTable=50},CT[3],FP)
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[4])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD46", EffID,1,{LMTable="MAX",SizeTable=50},CT[4],FP)
+	G_CB_TScanEff({CD(GunTrigGCcode,(LT[5])//0x1D,AtLeast)}, {ICDC_Sh3}, "CD47", EffID,1,{LMTable="MAX",SizeTable=50},CT[5],FP)
 end
 function BlingSEff2(Time,EffID)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+0)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD43", EffID,1,{LMTable="MAX",SizeTable=50},13)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+380)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD44", EffID,1,{LMTable="MAX",SizeTable=50},0)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+760)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD46", EffID,1,{LMTable="MAX",SizeTable=50},17)
-	G_CB_TScanEff({CD(GunTrigGCcode,(Time+760+380)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD47", EffID,1,{LMTable="MAX",SizeTable=50},15)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+0)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD43", EffID,1,{LMTable="MAX",SizeTable=50},13,FP)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+380)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD44", EffID,1,{LMTable="MAX",SizeTable=50},0,FP)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+760)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD46", EffID,1,{LMTable="MAX",SizeTable=50},17,FP)
+	G_CB_TScanEff({CD(GunTrigGCcode,(Time+760+380)//0x1D,AtLeast)}, {ICDC_Sh3}, "CD47", EffID,1,{LMTable="MAX",SizeTable=50},15,FP)
 end
 
 
@@ -1856,15 +1856,15 @@ BlingWHole(25980,CD48_WSh1,{"Danimoth (Arbiter)"})
 BlingWHole(32100,CD48_WSh1,{"Tassadar/Zeratul (Archon)"})
 BlingWHole(38210,CD48_WSh1,{"Gui Montag (Firebat)"})
 BlingWHole(44330,CD48_WSh1,{"Hyperion (Battlecruiser)"})
-G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},16)
-G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},10)
-G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},17)
+G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},16,FP)
+G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},10,FP)
+G_CB_TScanEff({CD(GunTrigGCcode,50060//0x1D,AtLeast)}, {CD48_WSh1}, "CD48", 391,1,{LMTable=1},17,FP)
 CD48_CD12Sh = CS_Reverse(CD12Sh)
 BlingWHole(50440,CD48_WSh1,{"Edmund Duke (Siege Tank)"})
 BlingWHole(56560,CD48_WSh1,{"Zeratul (Dark Templar)"})
-G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},16)
-G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},10)
-G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},13)
+G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},16,FP)
+G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},10,FP)
+G_CB_TScanEff({CD(GunTrigGCcode,61140//0x1D,AtLeast)}, {CD48_CD12Sh}, "CD48", 318,1,{LMTable=1},13,FP)
 
 CD48_WSh2 = CSMakePolygon(6, 32, 0, PlotSizeCalc(6,4), PlotSizeCalc(6,3))
 
@@ -2182,7 +2182,7 @@ Trigger2X(FP,{CD(GunTrigGCcode,283550//0x1D,AtLeast)},{
 	RotatePlayer({DisplayTextX("\x13\x1F Protoss Shield Battery invincible release", 4)},Force1,FP)
 	})
 
-	DoActions(FP,{MoveUnit(All, "Men", Force1, "HZ", "CD228")})
+	--DoActions(FP,{MoveUnit(All, "Men", Force1, "HZ", "CD228")})
 CIfEnd()
 
 

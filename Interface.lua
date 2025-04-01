@@ -169,10 +169,10 @@ for i = 0, 4 do
 	CMov(FP,0x582144+(i*4),8)
 	CMov(FP,0x582174+(i*4),CanC)
 	CAdd(FP,0x582174+(i*4),CanC)
-	CMov(FP,0x582264,1500*2)
-	CMov(FP,0x5822C4,1500*2) 	
-	CMov(FP,0x582294,count)
-	CAdd(FP,0x582294,count)
+	CMov(FP,0x582264+(i*4),1500*2)
+	CMov(FP,0x5822C4+(i*4),1500*2) 	
+	CMov(FP,0x582294+(i*4),count)
+	CAdd(FP,0x582294+(i*4),count)
 	CIf(FP,{TTOR({Bring(i, AtLeast, 1, "Men", "Money");Bring(P8, AtMost, 0, "Protoss Temple", 64)})})
 	for p = 15, 0, -1 do --환전트리거
 	TriggerX(FP, {Score(i,Kills,AtLeast,1000*2^p);}, {SetScore(i,Subtract,1000*2^p,Kills);SetResources(i,Add,250*2^p,Ore);}, {preserved})
@@ -197,8 +197,20 @@ for i = 0, 4 do
 	if TestStart==1 then
 		DoActions(FP, {SetResources(i, Add, 99999999, Ore),}, 1)--SetInvincibility(Enable, "Buildings", Force2, 64)
 	end
-	TriggerX(FP,{Command(i, AtLeast, 1, "Terran Ghost")},{RemoveUnitAt(1, "Terran Ghost", "Anywhere", i);CreateUnit(1, "Jim Raynor (Marine)", "HZ", i);},{preserved})
+	TriggerX(FP,{Command(i, AtLeast, 1, "Terran Ghost")},{RemoveUnitAt(1, "Terran Ghost", "Anywhere", i);CreateUnit(1, "Jim Raynor (Marine)", "CD23", i);},{preserved})
 
+	TriggerX(FP,{Bring(i, AtLeast, 1, "Men", 143),Bring(P8, AtMost, 0, "Protoss Temple", 64)},{
+		MoveUnit(All, "Men", i, 143, "CD228"),
+		MoveUnit(All, "Men", i, 143, "CD227"),
+	},{preserved})
+	TriggerX(FP,{Bring(i, AtLeast, 1, "Men", 143),Bring(P8, AtLeast, 1, "Protoss Temple", 64)},{
+		MoveUnit(All, "Men", i, 143, "HZ"),
+		MoveUnit(All, "Men", i, 143, "CD24"),
+		MoveUnit(All, "Men", i, 143, "MMM"),
+	},{preserved})
+
+	
+	
 	TriggerX(FP,{DeathsX(i,AtLeast,1*16777216,12,0xFF000000);Bring(i, AtLeast, 1, "Terran Firebat", "Anywhere");},{
 		SetCp(i),
 		DisplayText("\x13\x07 BGM ON", 4);
@@ -394,8 +406,11 @@ if Limit == 1 then
 		LeaderBoardComputerPlayers(Disable);}, {preserved})
 	TriggerX(FP, {CD(LeaderBoardT,800)}, {SetCD(LeaderBoardT,0)}, {preserved})
 
-			
-			
+	CIf(FP,{Memory(0x512684,AtLeast,128),Memory(0x512684,AtMost,131);})
+	FixText(FP, 1)
+	TriggerX(FP,{Memory(0x68C144,AtLeast,1);},{SetMemory(0x68C144,SetTo,2);SetCp(128),DisplayText("\x07『 \x03관전 상태\x04에서도 \x11플레이어\x04에게 \x07채팅을 보낼 수 있습니다. \x07』", 4),SetCp(FP)},{preserved})
+	FixText(FP, 2)
+	CIfEnd()
 
 
 

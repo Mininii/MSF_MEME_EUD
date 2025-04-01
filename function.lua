@@ -1435,7 +1435,8 @@ function G_CB_SetSpawnX(Condition,G_CB_CUTable,G_CB_ShapeTable,G_CB_LMTable,G_CB
 
 end
 
-function G_CB_TScanEff(Condition,G_CB_ShapeTable,CenterXY,ScanEffID,PreserveFlag,Property,Color)
+function G_CB_TScanEff(Condition,G_CB_ShapeTable,CenterXY,ScanEffID,PreserveFlag,Property,Color,Player)
+	if Player == nil then Player = P8 end
 	local x = {}
 	for j,k in pairs(G_CB_ShapeTable) do
 		table.insert(x,33)
@@ -1467,7 +1468,7 @@ function G_CB_TScanEff(Condition,G_CB_ShapeTable,CenterXY,ScanEffID,PreserveFlag
 		PP["EffColorMask"] = Mask
 	end
 
-	G_CB_TSetSpawn(Condition,x,G_CB_ShapeTable,P8,CenterXY,PreserveFlag,PP)
+	G_CB_TSetSpawn(Condition,x,G_CB_ShapeTable,Player,CenterXY,PreserveFlag,PP)
 	--P6, UID 33 고정
 end
 function G_CB_TSetSpawn(Condition,G_CB_CUTable,G_CB_ShapeTable,OwnerTable,CenterXY,PreserveFlag,G_CB_Property)

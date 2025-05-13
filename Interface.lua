@@ -243,7 +243,7 @@ DoActions2X(FP,{SubCD(CanCT,1)})
 MacroWarn = "\x13\x04\n\x0D\x0D\x13\x04！！！　\x08ＷＡＲＮＩＮＧ\x04　！！！\n\x14\n\x14\n"..StrDesignX("\x08매크로 또는 핵이 감지되었습니다.").."\n"..StrDesignX("\x08패널티로 모든 미네랄, 유닛 몰수, 무한 찌릿찌릿이 제공됩니다.").."\n\n\x14\n\x0D\x0D\x13\x04！！！　\x08ＷＡＲＮＩＮＧ\x04　！！！\n\x0D\x0D\x13\x04"
 BanCode2 = CreateCcodeArr(5)
 WarnCT = CreateVarArr(5, FP)
-for i = 0, 3 do
+for i = 0, 4 do
 	CIf(FP,HumanCheck(i,1),{SubV(WarnCT[i+1],1),SetInvincibility(Enable, "Devouring One (Zergling)", i, "GiveRe")})
 	
 	--if Limit == 1 then

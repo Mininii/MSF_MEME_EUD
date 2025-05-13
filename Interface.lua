@@ -50,7 +50,7 @@ CIf(FP,{--캔발동
 	KillUnit(54,Force2);
 	KillUnit(55,Force2);
 	KillUnit(56,Force2);
-	SetCDeaths(FP,SetTo,24*30,CanCT);
+	SetCDeaths(FP,SetTo,24*7,CanCT);
 	AddV(CanC,1);})
 Trigger2X(FP,{},{
 	RotatePlayer({
@@ -80,7 +80,7 @@ CIf(FP,{--캔발동
 	KillUnit(54,Force2);
 	KillUnit(55,Force2);
 	KillUnit(56,Force2);
-	SetCDeaths(FP,SetTo,24*30,CanCT);
+	SetCDeaths(FP,SetTo,24*7,CanCT);
 	AddV(CanC,1);})
 Trigger2X(FP,{},{
 	RotatePlayer({
@@ -111,7 +111,7 @@ CIfOnce(FP, {--캔발동
 	KillUnit(55,Force2);
 	KillUnit(56,Force2);
 	AddV(CanC,1);
-	SetCDeaths(FP,SetTo,24*30,CanCT);})
+	SetCDeaths(FP,SetTo,24*7,CanCT);})
 
 	Trigger2X(FP,{},{
 		RotatePlayer({
@@ -147,7 +147,7 @@ CIfOnce(FP, {--캔발동
 	KillUnit(55,Force2);
 	KillUnit(56,Force2);
 	AddV(CanC,1);
-	SetCDeaths(FP,SetTo,24*30,CanCT);})
+	SetCDeaths(FP,SetTo,24*7,CanCT);})
 
 	Trigger2X(FP,{},{
 		RotatePlayer({
@@ -413,6 +413,15 @@ if Limit == 1 then
 	CIfEnd()
 
 
-
+--카르텔 전용 인식 여부에 따라 마린공격력과 체력 재설정
+TriggerX(FP,{ElapsedTime(AtLeast, 35),Memory(0xA03740,Exactly,0)},{
+	RotatePlayer({PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),
+	DisplayTextX(string.rep("\x13\x07코드 정상 입력 감지되었습니다! \x04마린 \x08체력 \x04및 \x1B공격력 \x07상향\n",5), 4)
+}, HumanPlayers, FP),
+SetMemory(0x662350 + (20*4),SetTo,9999*256),
+SetMemoryW(0x660E00 + (20 *2), SetTo, 9999),
+SetMemoryW(0x656EB0+(1 *2),SetTo,600),
+SetMemoryW(0x657678+(1 *2),SetTo,40)
+})
 
 end

@@ -173,7 +173,7 @@ for i = 0, 4 do
 	CMov(FP,0x5822C4+(i*4),1500*2) 	
 	CMov(FP,0x582294+(i*4),count)
 	CAdd(FP,0x582294+(i*4),count)
-	CIf(FP,{TTOR({Bring(i, AtLeast, 1, "Men", "Money");Bring(P8, AtMost, 0, "Protoss Temple", 64)})})
+	CIf(FP,{TTOR({Bring(i, AtLeast, 1, "Men", "Money");Bring(P8, AtMost, 0, "Protoss Temple", 64),CD(CodeEnable,1)})})
 	for p = 15, 0, -1 do --환전트리거
 	TriggerX(FP, {Score(i,Kills,AtLeast,1000*2^p);}, {SetScore(i,Subtract,1000*2^p,Kills);SetResources(i,Add,250*2^p,Ore);}, {preserved})
 	end
@@ -416,12 +416,14 @@ if Limit == 1 then
 --카르텔 전용 인식 여부에 따라 마린공격력과 체력 재설정
 TriggerX(FP,{ElapsedTime(AtLeast, 35),Memory(0xA03740,Exactly,0)},{
 	RotatePlayer({PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),
-	DisplayTextX(string.rep("\x13\x07코드 정상 입력 감지되었습니다! \x04마린 \x08체력 \x04및 \x1B공격력 \x07상향\n",5), 4)
+	DisplayTextX(string.rep("\x13\x07코드 정상 입력 감지되었습니다! \x04마린 \x08체력 \x04및 \x1B공격력 \x07상향, \x17자환 적용, \x08응머즐 ㄱㄱ\n",5), 4)
 }, HumanPlayers, FP),
 SetMemory(0x662350 + (20*4),SetTo,9999*256),
 SetMemoryW(0x660E00 + (20 *2), SetTo, 9999),
 SetMemoryW(0x656EB0+(1 *2),SetTo,600),
-SetMemoryW(0x657678+(1 *2),SetTo,40)
+SetMemoryW(0x657678+(1 *2),SetTo,40),
+SetCD(CodeEnable, 1),
+Order("Any unit", Force2, 64, Move, "HZ"),
 })
 
 end

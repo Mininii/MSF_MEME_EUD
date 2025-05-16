@@ -622,11 +622,11 @@ TriggerX(FP, {Switch("Switch 100", Set)}, {SetCD(CRCDMode,1)})
 
 
 TriggerX(FP,{CD(CRCDMode,0)},{
-	RotatePlayer({DisplayTextX(string.rep("\x13\x08불길한 예감\x04이 든다... \x11우리 집\x04으로 도망쳐야 할 것 같다...\n", 6), 4);
+	RotatePlayer({DisplayTextX(string.rep("\x13\x08불길한 예감\x04이 든다... \x11우리 집\x04으로 도망쳐야 할 것 같다...\n\x13\x08Feel not good\x04. \x07Run away \x04to the \x11Home\n", 3), 4);
 	PlayWAVX("staredit\\wav\\Jester.ogg");PlayWAVX("staredit\\wav\\Jester.ogg");}, HumanPlayers, FP);
 })
 TriggerX(FP,{CD(CRCDMode,1)},{
-	RotatePlayer({DisplayTextX(string.rep("\x13\x08불길한 예감\x04이 든다... \x11우리 집\x04에서 도망쳐야 할 것 같다...\n", 6), 4);
+	RotatePlayer({DisplayTextX(string.rep("\x13\x08불길한 예감\x04이 든다... \x11우리 집\x04에서 도망쳐야 할 것 같다...\n\x13\x08Feel not good\x04. \x07Run away \x04from the \x11Home\n", 3), 4);
 	PlayWAVX("staredit\\wav\\Jester.ogg");PlayWAVX("staredit\\wav\\Jester.ogg");}, HumanPlayers, FP);
 })
 CIfEnd()
@@ -659,10 +659,10 @@ CMov(FP,G_CB_RotateV,_Div(JRot2, 10))
 f_Lengthdir(FP, 9*32, G_CB_RotateV, G_CB_X, G_CB_Y)
 CAdd(FP,G_CB_X,4032-(9*32))
 CAdd(FP,G_CB_Y,864)
-G_CB_TScanEff({CD(CRCDT2,5,AtLeast)}, {CSMakeLine(1, 32, 90, 9, 0)}, {4032-(9*32),864}, 998, nil,{LMTable="MAX",RotateTable="Main"})
+G_CB_TScanEff({CD(CRCDT2,5,AtLeast)}, {CSMakeLine(1, 32, 90, 9, 0)}, {4032-(9*32),864}, 998, nil,{LMTable="MAX",RotateTable="Main"},nil,FP)
 NegRot = CreateVar(FP)
 CNeg(FP,NegRot,G_CB_RotateV)
-G_CB_TScanEff({CD(CRCDT2,5,AtLeast)}, {CSMakeLine(1, 64, 90, 4, 0)}, nil, 429, nil,{LMTable="MAX",RotateTable=NegRot})
+G_CB_TScanEff({CD(CRCDT2,5,AtLeast)}, {CSMakeLine(1, 64, 90, 4, 0)}, nil, 429, nil,{LMTable="MAX",RotateTable=NegRot},nil,FP)
 
 TriggerX(FP, {CD(CRCDT,10,AtLeast)}, {SetCD(CRCDT,0)},{preserved})
 TriggerX(FP, {CD(CRCDT2,5,AtLeast)}, {SetCD(CRCDT2,0)},{preserved})
@@ -672,7 +672,7 @@ CIf(FP,{CD(CRCDANY,40500 // 0x1D,AtLeast)})
 
 
 G_CB_TScanEff({CD(CRCDANY,40500 // 0x1D,AtLeast),CD(CRCDMode,0)}, {CSMakeCircle(6, 192, 0, PlotSizeCalc(6, 13), 0)}, {4032-(9*32),864}, 60, 1,{RepeatType=44},nil,FP)
-G_CB_TScanEff({CD(CRCDANY,40500 // 0x1D,AtLeast),CD(CRCDMode,1)}, {CSMakeCircle(6, 64, 0, PlotSizeCalc(6, 7), 0)}, {448,3888}, 60, 1,{RepeatType=44},nil,FP)
+G_CB_TScanEff({CD(CRCDANY,40500 // 0x1D,AtLeast),CD(CRCDMode,1)}, {CSMakeCircle(6, 192, 0, PlotSizeCalc(6, 13), 0)}, {448,3888}, 60, 1,{RepeatType=44},nil,FP)
 
 CMov(FP,0x6509B0,19025+25)
 CFor(FP, 19025+19, 19025+(1700*84)+19,84)

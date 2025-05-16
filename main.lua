@@ -29,7 +29,7 @@ math.randomseed(322,322)
 TestSet(2)
 if Limit == 1 then
 	BGMTimerForceReset = 1
-	GunBossTestMode = 0
+	GunBossTestMode = 1
 else
 	BGMTimerForceReset = 0
 	GunBossTestMode = 0
@@ -53,8 +53,8 @@ Install_BackupCP(FP)
 Include_CBPaint()
 Vars()
 Install_GetCLoc(FP,104,nilunit)
-Call_Effect()
 Include_Conv_CPosXY(FP,{128*32,128*32})
+Call_Effect()
 Install_BackupCP(FP)
 Include_CRandNum(FP)
 Include_G_CB_Library(22,0x600,128)

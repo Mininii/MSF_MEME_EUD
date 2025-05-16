@@ -1,9 +1,21 @@
 function Call_Effect()
+	Call_MakeEffect = SetCallForward()
+	SetCall(FP)
+
+	f_Read(FP,0x628438,"X",Nextptrs,0xFFFFFF)
+	CDoActions(FP,{
+		CreateUnitWithProperties(1,204,1,FP,{energy = 100}),
+		TSetMemoryX(_Add(Nextptrs,55), SetTo,0x104,0x104),
+		TSetMemoryX(_Add(Nextptrs,57), SetTo,0,0xFF)})
+	
+--			SetDeathsX(19025+(84*i)+55,SetTo,0x104,0,0x104);
+--			SetDeathsX(19025+(84*i)+57,SetTo,0,0,0xFF);
+	SetCallEnd()
 	Call_CA_Effect = SetCallForward()
 	CCA_ShNm=CreateVar2(FP, nil, nil, 1)
 	CA_Eff_Rat = CreateVar2(FP,nil,nil,25000)
 	CA_Eff_XY,CA_Eff_YZ,CA_Eff_ZX,CA_Create,CA_Create2 = CreateVars(4,FP)
-	CA_EffSWArr = CreateCcodes(8)
+	CA_EffSWArr = CreateCcodeArr(8)
 	function CA_Eff()
 		local CA = CAPlotDataArr
 		local CB = CAPlotCreateArr
@@ -22,10 +34,10 @@ function Call_Effect()
 
 
 		function CreateEffUnitA(Condition,Height,Color)
-			TriggerX(FP,{Condition},{
-				SetMemoryB(0x66321C, SetTo, Height); -- 높이
-				SetMemoryB(0x669E28+936, SetTo, Color); -- 색상
-				CreateUnitWithProperties(1,204,1,FP,{energy = 100})},{preserved})
+			CallTriggerX(FP, Call_MakeEffect, {Memory(0x628438,AtLeast,1),Condition},{
+		SetMemoryB(0x66321C, SetTo, Height); -- 높이
+		SetMemoryB(0x669E28+936, SetTo, Color); -- 색상
+		})
 		end
 		
 	CreateEffUnitA({CD(CA_EffSWArr[1],0),CVar("X",CA[6],Exactly,1);},19,6)
@@ -65,9 +77,9 @@ function Call_Effect()
 	--커스텀 도형 건작 유닛 생성구간0~227
 		--CMov(FP,TRepeatX,CPosX)
 		--CMov(FP,TRepeatY,CPosY)
-		f_TempRepeatX({CV(CA_Create,1,AtLeast),CV(CA_Create,227,AtMost)}, CA_Create, 1, 193, FP)
-		f_TempRepeatX({CV(CA_Create2,1,AtLeast),CV(CA_Create2,227,AtMost)}, CA_Create2, 1, 193, FP)
-	CIfEnd()
+		--f_TempRepeatX({CV(CA_Create,1,AtLeast),CV(CA_Create,227,AtMost)}, CA_Create, 1, 193, FP)
+		--f_TempRepeatX({CV(CA_Create2,1,AtLeast),CV(CA_Create2,227,AtMost)}, CA_Create2, 1, 193, FP)
+	
 	end
 	SetCall(FP)
 		local CA = CAPlotForward()

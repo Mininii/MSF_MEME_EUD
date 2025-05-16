@@ -26,7 +26,7 @@ end
 --PushErrorMsg(string.byte("	"))
 math.randomseed(322,322)
 
-TestSet(0)
+TestSet(2)
 if Limit == 1 then
 	BGMTimerForceReset = 1
 	GunBossTestMode = 1
@@ -34,6 +34,7 @@ else
 	BGMTimerForceReset = 0
 	GunBossTestMode = 0
 end
+
 FP = P6
 SetForces({P1,P2,P3,P4,P5},{P7,P8},{P6},{},{P1,P2,P3,P4,P5,P6,P7,P8})
 SetFixedPlayer(FP)
@@ -45,16 +46,19 @@ EUDTurbo(FP)
 DP_Start_init(FP)
 init_func = def_sIndex()
 CJump(AllPlayers,init_func)
+RandSwitch = "Switch 100"
 
-Include_CtrigPlib(360,"Switch 100")
+Include_CtrigPlib(360,RandSwitch)
 Install_BackupCP(FP)
 Include_CBPaint()
 Vars()
 Install_GetCLoc(FP,104,nilunit)
+Call_Effect()
 Include_Conv_CPosXY(FP,{128*32,128*32})
 Install_BackupCP(FP)
 Include_CRandNum(FP)
 Include_G_CB_Library(22,0x600,128)
+
 
 
 

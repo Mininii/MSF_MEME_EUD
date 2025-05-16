@@ -679,6 +679,80 @@ function f_TempRepeatX(Condition,UnitID,Number,Type,Owner,CenterXY,Flags,NQOp)
 		SetCVar(FP,NQOption[2],SetTo,NQOp),})
 	CallTriggerX(FP,Set_Repeat,Condition,nil,Flags)
 end
+
+function f_TempEffRepeatX(Condition,ScanEffID,Color,Type,Owner,CenterXY,Flags,NQOp)
+
+	if PP == nil then PP={} end
+	PP["EffID"] = ScanEffID
+
+	if Color ~= nil then
+		local ret2 = 0x669E28+ScanEffID
+		local ret = bit32.band(ret2, 0xFFFFFFFF)%4
+		local Mask = 0
+		if ret == 0 then
+			Mask = 0xFF
+		elseif ret == 1 then
+			Mask = 0xFF00
+			Color = Color * 0x100
+		elseif ret == 2 then
+			Mask = 0xFF0000
+			Color = Color * 0x10000
+		elseif ret == 3 then
+			Mask = 0xFF000000
+			Color = Color * 0x1000000
+		end
+		ret2 = ret2 - ret
+		
+		PP["EffColorMem"] = EPDF(ret2)
+		PP["EffColor"] = Color
+		PP["EffColorMask"] = Mask
+	end
+
+
+	if Owner == nil then Owner = 0xFFFFFFFF end
+	if NQOp == nil then NQOp = 0 end
+	if Type == nil then Type = 0 end
+	local SetX = 0 
+	local SetY = 0
+	if CenterXY == nil then 
+		SetX = 0xFFFFFFFF
+		SetY = 0xFFFFFFFF
+	elseif type(CenterXY) == "table" then
+		SetX = CenterXY[1]
+		SetY = CenterXY[2]
+	elseif CenterXY == "CG" then
+		SetX = 0x80000000
+		SetY = 0x80000000
+	elseif type(CenterXY) == "number" or  type(CenterXY) == "string" then -- Location Mode
+		local Temp,EditorLocNum = ConvertLocation(CenterXY)
+		SetX = Temp+2 -- LocationID
+		SetY = 0x32223222 -- LocationMode Flag
+	
+
+	else
+		PushErrorMsg("TRepeat_CenterXY_Error")
+	end
+	
+	
+	
+	
+
+	CDoActions(FP,{
+		TSetCVar(FP,Repeat_EffID[2],SetTo,PP["EffID"]),
+		TSetCVar(FP,SendEff[1][2],SetTo,PP["EffColorMem"]),
+		TSetCVar(FP,SendEff[2][2],SetTo,PP["EffColor"]),
+		TSetCVar(FP,SendEff[3][2],SetTo,PP["EffColorMask"]),
+		TSetCVar(FP,Gun_TempSpawnSet1[2],SetTo,33),
+		TSetCVar(FP,Repeat_TempV[2],SetTo,1),
+		TSetCVar(FP,TRepeatX[2],SetTo,SetX),
+		TSetCVar(FP,TRepeatY[2],SetTo,SetY),
+		SetCVar(FP,RepeatType[2],SetTo,Type),
+		SetCDeaths(FP,SetTo,0,CA_Repeat_Check),
+		SetCVar(FP,CreatePlayer[2],SetTo,Owner),
+		SetCVar(FP,NQOption[2],SetTo,NQOp),})
+	CallTriggerX(FP,Set_Repeat,Condition,nil,Flags)
+end
+
 Set_Repeat = SetCallForward()
 SetCall(FP)
 --TriggerX(FP,{CVar(FP,Gun_TempSpawnSet1[2],Exactly,0)},{RotatePlayer({DisplayTextX(f_RepeatErr2,4),PlayWAVX("sound\\Misc\\Buzz.wav"),PlayWAVX("sound\\Misc\\Buzz.wav")},HumanPlayers,FP),SetCVar(FP,Repeat_TempV[2],SetTo,0)},{preserved})
@@ -915,6 +989,13 @@ function CA_Func1()
 			CA_Rotate(G_CB_TempTable[21])
 		CIfXEnd()
 	CIfEnd()
+
+	CIf(FP,{CV(NQOption,1)}) -- 
+	CA_RatioXY(CA_Eff_Rat,186000,CA_Eff_Rat,186000)
+	CA_Rotate3D(CA_Eff_XY, CA_Eff_YZ, CA_Eff_ZX)
+	CIfEnd()
+	
+	
 	local CX = CreateVar(FP)
 	local CY = CreateVar(FP)
 	CA_MoveXY(G_CB_TempTable[25], G_CB_TempTable[26])
@@ -1097,16 +1178,15 @@ function CB_RandSort()
 		--DisplayPrint(HumanPlayers, {"DirRand : ",DirRand,"  FncRand : ",FncRand})
 	end
 	CB_Sort(CFunc1, DirRand, STSize+2, EndRetShape)
+	if TestStart == 1 then
 	CurShNum = CreateVar(FP)
 	CB_GetNumber(EndRetShape, CurShNum)
-	if TestStart == 1 then
 
 	--DisplayPrint(HumanPlayers, {"Calc "..(STSize+2).." to "..EndRetShape.." DirRand : ",DirRand,"  FncRand : ",FncRand,"   CurShNum : ",CurShNum})
 	end
 	
 
 end
-
 function CB_MarNumFill()
 	local MarNum = CreateVars(FP)
 	--Simple_SetLocX(FP, 200, G_CB_TempTable[8],G_CB_TempTable[9],G_CB_TempTable[8],G_CB_TempTable[9],{Simple_CalcLoc(200, -32*15, -32*15, 32*15, 32*15),KillUnitAt(All, nilunit, 201, FP)})

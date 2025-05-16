@@ -1885,6 +1885,10 @@ end
 GBOSS = CIf_GunTrig(P8, "Protoss Temple", 64,300000//0x1D,24);
 
 
+	DoActionsX(FP,{
+		AddV(CA_Eff_XY,1),
+		AddV(CA_Eff_YZ,1)
+	})
 GB_Req_Rat = CreateVar(FP)
 GB_Req_Rot = CreateVar(FP)
 
@@ -1963,11 +1967,11 @@ function BeatCUTrig(Left,Right,CUT,DivNum,EffNum,EffColor)
 	if DivNum == nil then DivNum = 1 end
 	local StartValue = Left
 	while StartValue<=Right do
-		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},CUT,GB_ScSiegeEffSh,P8,{0,0},1,{LMTable="MAX",Order={Attack,"CD231"}})
+		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},CUT,CA_EffShape,P8,{0,0},1,{NQOpTable = 1,LMTable="MAX",Order={Attack,"CD231"}})
 		if EffNum ~= 0 then
-			G_CB_TScanEff({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)}, {GB_ScSiegeEffSh}, {0,0}, EffNum, 1,{LMTable="MAX"},EffColor)
+			G_CB_TScanEff({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)}, {CA_EffShape}, {0,0}, EffNum, 1,{NQOpTable = 1,LMTable="MAX"},EffColor)
 		else
-			G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{84},GB_ScSiegeEffSh,P6,{0,0},1,{LMTable="MAX",RepeatType="Nothing"})
+			G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{84},CA_EffShape,P6,{0,0},1,{NQOpTable = 1,LMTable="MAX",RepeatType="Nothing"})
 		end
 		StartValue=StartValue + (Beat/DivNum)
 	end
@@ -1984,9 +1988,9 @@ function BeatCUSkill(Left,Right)
 		StartValue=StartValue + ((Beat*2))
 	end
 end
-G_CB_TScanEff({CD(GunTrigGCcode,13330//0x1D,AtLeast)}, {GB_ScSiegeEffSh}, {0,0}, 318, 1,{LMTable="MAX"},0)
+G_CB_TScanEff({CD(GunTrigGCcode,13330//0x1D,AtLeast)}, {CA_EffShape}, {0,0}, 318, 1,{LMTable="MAX"},0)
 
-G_CB_TScanEff({CD(GunTrigGCcode,70660//0x1D,AtLeast)}, {GB_ScSiegeEffSh}, {0,0}, 318, 1,{LMTable="MAX"},0)
+G_CB_TScanEff({CD(GunTrigGCcode,70660//0x1D,AtLeast)}, {CA_EffShape}, {0,0}, 318, 1,{LMTable="MAX"},0)
 BeatCUSkill(7110,13110)
 BeatCUTrig(7110,13110,UT1)
 BeatCUTrig(14220,27330,UT1,nil,4)
@@ -2022,11 +2026,11 @@ BeatCUTrig(156440,170440,UT1,nil,215)
 function BeatCUTrig2(Time,CUT,EffNum,EffColor)
 	if EffNum == nil then EffNum = 0 end
 		for j,k in pairs({0,((Beat/4)*3)*1,((Beat/4)*3)*2,((Beat/4)*3)*3,Beat*3,(Beat*3)+(Beat/2)}) do
-			G_CB_TSetSpawn({CD(GunTrigGCcode,(k+Time)//0x1D,AtLeast)},CUT,GB_ScSiegeEffSh,P8,{0,0},1,{LMTable="MAX",Order={Attack,"CD231"}})
+			G_CB_TSetSpawn({CD(GunTrigGCcode,(k+Time)//0x1D,AtLeast)},CUT,CA_EffShape,P8,{0,0},1,{NQOpTable = 1,LMTable="MAX",Order={Attack,"CD231"}})
 			if EffNum ~= 0 then
-				G_CB_TScanEff({CD(GunTrigGCcode,(k+Time)//0x1D,AtLeast)}, {GB_ScSiegeEffSh}, {0,0}, EffNum, 1,{LMTable="MAX"},EffColor)
+				G_CB_TScanEff({CD(GunTrigGCcode,(k+Time)//0x1D,AtLeast)}, {CA_EffShape}, {0,0}, EffNum, 1,{NQOpTable = 1,LMTable="MAX"},EffColor)
 			else
-				G_CB_TSetSpawn({CD(GunTrigGCcode,(k+Time)//0x1D,AtLeast)},{86},GB_ScSiegeEffSh,P6,{0,0},1,{LMTable="MAX",RepeatType="Nothing"})
+				G_CB_TSetSpawn({CD(GunTrigGCcode,(k+Time)//0x1D,AtLeast)},{86},CA_EffShape,P6,{0,0},1,{NQOpTable = 1,LMTable="MAX",RepeatType="Nothing"})
 			end
 		end
 end
@@ -2038,7 +2042,7 @@ G_CB_TScanEff({CD(GunTrigGCcode,(176000)//0x1D,AtLeast)}, {GBEffSh_T}, "CD141", 
 BeatCUTrig(179550,218440,UT1,nil,58)
 BeatCUTrig(218660,219440,UT1,2,332)
 BeatCUTrig(219550,221730,UT1,4,333)
-G_CB_TScanEff({CD(GunTrigGCcode,221770//0x1D,AtLeast)}, {GB_ScSiegeEffSh}, {0,0}, 318, 1,{LMTable="MAX"},0)
+G_CB_TScanEff({CD(GunTrigGCcode,221770//0x1D,AtLeast)}, {CA_EffShape}, {0,0}, 318, 1,{NQOpTable = 1,LMTable="MAX"},0)
 
 local GBScreen = CreateCcode()
 TriggerX(FP,{CD(GunTrigGCcode,222220//0x1D,AtLeast),CD(GunTrigGCcode,225760//0x1D,AtMost)},{SetMemory(0x657A9C,SetTo,0)},{preserved})

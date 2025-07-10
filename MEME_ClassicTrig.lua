@@ -52,6 +52,20 @@ Trigger { -- HM
 		Comment("HM");
 	},
 }
+Trigger { -- PM
+	players = {Force1},
+	conditions = {
+		Bring(CurrentPlayer, AtLeast, 1, 20, "Hero");
+		Accumulate(CurrentPlayer, AtLeast, 25000, Ore);
+	},
+	actions = {
+		PreserveTrigger();
+		RemoveUnitAt(1, 20, "Hero", CurrentPlayer);
+		SetResources(CurrentPlayer, Subtract, 25000, Ore);
+		CreateUnit(1, 99, "HZ", CurrentPlayer);
+		Comment("HM");
+	},
+}
 
 
 Trigger { -- BBX
@@ -609,7 +623,7 @@ Trigger {
 		Always();
 	},
 	actions = {
-		SetMissionObjectives("\r\n\x13 Firebat > BGM On/Off\r\n\x13 Terran Marine > Jim Rayner 15000 Ore \r\n\x13 Ghost > Jim Rayner 20000 Ore \r\n\x13 Currency Exchange > 7 o'clock mineral \r\n\x13 Bunker 8 \r\n\x13 currency exchange rate 25%\x1F");
+		SetMissionObjectives("\r\n\x13 Firebat > BGM On/Off\r\n\x13 Terran Marine > Jim Rayner 15000 Ore \r\n\x13 Jim Rayner > Samir Duran 25000 Ore\r\n\x13 Ghost > Jim Rayner 20000 Ore \r\n\x13 Currency Exchange > 7 o'clock mineral \r\n\x13 Bunker MAX 8 \r\n\x13 currency exchange rate 28%\x1F");
 	},
 }
 

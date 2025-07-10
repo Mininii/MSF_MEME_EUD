@@ -991,7 +991,7 @@ function CA_Func1()
 	CIfEnd()
 
 	CIf(FP,{CV(NQOption,1)}) -- 
-	CA_RatioXY(CA_Eff_Rat,186000,CA_Eff_Rat,186000)
+	CA_RatioXY(CA_Eff_Rat,290000,CA_Eff_Rat,290000)
 	CA_Rotate3D(CA_Eff_XY, CA_Eff_YZ, CA_Eff_ZX)
 	CIfEnd()
 	

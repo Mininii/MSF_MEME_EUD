@@ -89,6 +89,7 @@ end
 	end
 	
 	SetUnitsDatX(0, {SizeL = 8, SizeU = 7, SizeR = 4, SizeD = 11})
+	SetUnitsDatX(99, {SizeL = 8, SizeU = 7, SizeR = 4, SizeD = 11})
 	SetUnitsDatX(20, {SizeL = 8, SizeU = 7, SizeR = 4, SizeD = 11})
 	DoActions2(FP, PatchArr)
 	DoActions2(FP, PatchArr2)

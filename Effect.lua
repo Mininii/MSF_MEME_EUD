@@ -13,14 +13,15 @@ function Call_Effect()
 	SetCallEnd()
 	Call_CA_Effect = SetCallForward()
 	CCA_ShNm=CreateVar2(FP, nil, nil, 1)
-	CA_Eff_Rat = CreateVar2(FP,nil,nil,25000)
+	CA_Eff_Rat = CreateVar2(FP,nil,nil,150000)
+	CAdd(FP,CA_Eff_Rat,0x1D)
 	CA_Eff_XY,CA_Eff_YZ,CA_Eff_ZX,CA_Create,CA_Create2 = CreateVars(4,FP)
 	CA_EffSWArr = CreateCcodeArr(8)
 	function CA_Eff()
 		local CA = CAPlotDataArr
 		local CB = CAPlotCreateArr
 		local PlayerID = CAPlotPlayerID
-		CA_RatioXY(CA_Eff_Rat,186000,CA_Eff_Rat,186000)
+		CA_RatioXY(CA_Eff_Rat,290000,CA_Eff_Rat,290000)
 		CA_Rotate3D(CA_Eff_XY,CA_Eff_YZ,CA_Eff_ZX)
 		CMov(FP,CPosX,_Add(V(CA[8]),3392))
 		CMov(FP,CPosY,_Add(V(CA[9]),3616))

@@ -26,7 +26,7 @@ end
 --PushErrorMsg(string.byte("	"))
 math.randomseed(322,322)
 
-TestSet(2)
+TestSet(0)
 if Limit == 1 then
 	BGMTimerForceReset = 1
 	GunBossTestMode = 1

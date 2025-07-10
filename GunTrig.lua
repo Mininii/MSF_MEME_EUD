@@ -678,7 +678,7 @@ CMov(FP,0x6509B0,19025+25)
 CFor(FP, 19025+19, 19025+(1700*84)+19,84)
 CI=CForVariable()
 CIf(FP,{{
-	TTOR({DeathsX(CurrentPlayer, Exactly, 20, 0, 0xFF),DeathsX(CurrentPlayer, Exactly, 0, 0, 0xFF)}),
+	TTOR({DeathsX(CurrentPlayer, Exactly, 20, 0, 0xFF),DeathsX(CurrentPlayer, Exactly, 99, 0, 0xFF),DeathsX(CurrentPlayer, Exactly, 0, 0, 0xFF)}),
 	TDeathsX(_Add(CI,55-19), Exactly, 0x04000000, 0, 0x04000000),
 	TDeathsX(CI, AtLeast, 1*256, 0, 0xFF00)}})
 	f_SaveCp()
@@ -1887,8 +1887,9 @@ GBOSS = CIf_GunTrig(P8, "Protoss Temple", 64,300000//0x1D,24);
 	CallTrigger(FP,Call_CA_Effect,{SetV(CA_Create,0)})
 
 	DoActionsX(FP,{
-		AddV(CA_Eff_XY,1),
-		AddV(CA_Eff_YZ,1)
+		AddV(CA_Eff_XY,4),
+		AddV(CA_Eff_XY,4),
+		AddV(CA_Eff_ZX,2)
 	})
 GB_Req_Rat = CreateVar(FP)
 GB_Req_Rot = CreateVar(FP)
@@ -1948,7 +1949,8 @@ GBSh_2 = CS_OverlapX(
 	CS_MoveXY(CSMakeLine(2, 64, 0, 7, 0),64,0),
 	CS_MoveXY(CSMakeLine(2, 64, 0, 7, 0),-64,0)
 )
-GB_SkillSh = CSMakePolygon(4,128,45,PlotSizeCalc(4,2),1)
+ShapeA156 = {4   ,{3840, 3264},{3840, 3968},{2944, 3968},{2944, 3264}}
+GB_SkillSh = CS_FillPathXY(ShapeA156, 1, 84, 84, 0)
 
 function GB_WhSpawn(Time,CUT,Shape)
 	G_CB_TSetSpawn({CD(GunTrigGCcode,Time//0x1D,AtLeast)},CUT,Shape,P8,"CD231",1,{LMTable="MAX",RepeatType="Nothing"})
@@ -1980,12 +1982,7 @@ end
 function BeatCUSkill(Left,Right)
 	local StartValue = Left
 	while StartValue<=Right do
-		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{27},GB_SkillSh,P8,"CD231",1,{LMTable="MAX",Order={Attack,"CD141"},RepeatType="SkillUnit"})
-		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{27},GB_SkillSh,P8,"CD232",1,{LMTable="MAX",Order={Attack,"CD141"},RepeatType="SkillUnit"})
-		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{27},GB_SkillSh,P8,"CD233",1,{LMTable="MAX",Order={Attack,"CD141"},RepeatType="SkillUnit"})
-		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{27},GB_SkillSh,P8,"CD234",1,{LMTable="MAX",Order={Attack,"CD141"},RepeatType="SkillUnit"})
-		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{27},GB_SkillSh,P8,"CD235",1,{LMTable="MAX",Order={Attack,"CD141"},RepeatType="SkillUnit"})
-		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{27},GB_SkillSh,P8,"CD236",1,{LMTable="MAX",Order={Attack,"CD141"},RepeatType="SkillUnit"})
+		G_CB_TSetSpawn({CD(GunTrigGCcode,StartValue//0x1D,AtLeast)},{27},GB_SkillSh,P8,{0,0},1,{LMTable="MAX",Order={Attack,"CD141"},RepeatType="SkillUnit"})
 		StartValue=StartValue + ((Beat*2))
 	end
 end

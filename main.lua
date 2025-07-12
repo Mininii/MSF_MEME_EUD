@@ -29,7 +29,7 @@ math.randomseed(322,322)
 TestSet(0)
 if Limit == 1 then
 	BGMTimerForceReset = 1
-	GunBossTestMode = 1
+	GunBossTestMode = 0
 else
 	BGMTimerForceReset = 0
 	GunBossTestMode = 0

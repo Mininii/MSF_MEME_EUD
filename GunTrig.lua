@@ -1217,17 +1217,17 @@ ICDC = CIf_GunTrig(P8, "Ion Cannon", "ICD",(55380+5000)//0x1D,15);
 ICDC_Sh1 = CSMakeCircle(99, 1024, 0, 100, 1)
 ICDC_Sh2 = CSMakeCircle(49, 1024+512, 0, 50, 1)
 ICDC_Sh3 = CSMakeCircle(5, 256, 0, 6, 1)
-G_CB_TScanEff({CD(GunTrigGCcode,0,AtLeast)}, {ICDC_Sh1}, "HZ", 391,1)
-G_CB_TSetSpawn({CD(GunTrigGCcode,1840//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX"})
+G_CB_TScanEff({CD(GunTrigGCcode,0,AtLeast)}, {ICDC_Sh1}, "HZ", 391,1,nil,nil,P6)
+G_CB_TSetSpawn({CD(GunTrigGCcode,1840//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX",RepeatType = "Attack_Parasite"})
 for j,k in pairs({"CD43","CD44","CD45","CD46","CD47"}) do
-	G_CB_TSetSpawn({CD(GunTrigGCcode,1840//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,9230//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX"})
-	G_CB_TSetSpawn({CD(GunTrigGCcode,18460//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX"})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,1840//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX",RepeatType = "Attack_Parasite"})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,9230//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX",RepeatType = "Attack_Parasite"})
+	G_CB_TSetSpawn({CD(GunTrigGCcode,18460//0x1D,AtLeast)},{"Norad II (Battlecruiser)"},ICDC_Sh3,P8,k,1,{LMTable="MAX",RepeatType = "Attack_Parasite"})
 end
 
-G_CB_TSetSpawn({CD(GunTrigGCcode,9230//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,9230//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX",RepeatType = "Attack_Parasite"})
 
-G_CB_TSetSpawn({CD(GunTrigGCcode,18460//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX"})
+G_CB_TSetSpawn({CD(GunTrigGCcode,18460//0x1D,AtLeast)},{"Kukulza (Guardian)"},ICDC_Sh1,P8,"HZ",1,{LMTable="MAX",RepeatType = "Attack_Parasite"})
 
 
 G_CB_TScanEff({CD(GunTrigGCcode,(24000//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},10)
@@ -1242,8 +1242,6 @@ G_CB_TScanEff({CD(GunTrigGCcode,(51690//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 3
 G_CB_TScanEff({CD(GunTrigGCcode,(52610//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},16)
 G_CB_TScanEff({CD(GunTrigGCcode,(53530//0x1D),AtLeast)}, {CD218Sh_2}, "ICDX2", 391,1,{LMTable=6},17)
 G_CB_TSetSpawn({CD(GunTrigGCcode,55380//0x1D,AtLeast)},{30},CD218Sh_2,P8,"ICDX2",1,{LMTable="MAX"})
-TriggerX(FP,{CD(GunTrigGCcode,0,AtLeast)},{RotatePlayer({RunAIScript("Turn ON Shared Vision for Player 8");}, Force1, FP)})
-TriggerX(FP,{CD(GunTrigGCcode,25840//0x1D,AtLeast)},{RotatePlayer({RunAIScript("Turn OFF Shared Vision for Player 8");}, Force1, FP)})
 
 
 
@@ -1882,13 +1880,13 @@ CIfEnd()
 
 
 end
+DoActions(FP,{RemoveUnit(204,AllPlayers),})
 GBOSS = CIf_GunTrig(P8, "Protoss Temple", 64,300000//0x1D,24);
-	DoActions(FP,{RemoveUnit(204,AllPlayers),})
 	CallTrigger(FP,Call_CA_Effect,{SetV(CA_Create,0)})
 
 	DoActionsX(FP,{
 		AddV(CA_Eff_XY,4),
-		AddV(CA_Eff_XY,4),
+		AddV(CA_Eff_YZ,4),
 		AddV(CA_Eff_ZX,2)
 	})
 GB_Req_Rat = CreateVar(FP)

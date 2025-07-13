@@ -191,7 +191,7 @@ for i = 0, 4 do
 	DisplayPrint(HumanPlayers,{"\x12",PName(i)," \x04Jim Raynor \x06DIE"},nil,{"staredit\\wav\\_999.ogg","staredit\\wav\\_999.ogg"})
 	CIfEnd()
 	CIf(FP,{Deaths(i, AtLeast, 1, 99);},{SetDeaths(i, Subtract, 1, 99),SetScore(i, Add, 4, Custom)})
-	DisplayPrint(HumanPlayers,{"\x12",PName(i)," \x04Samir Duran \x06DIE"},nil,{"staredit\\wav\\_9993.ogg","staredit\\wav\\_9993.ogg"})
+	DisplayPrint(HumanPlayers,{"\x12",PName(i)," \x04Samar Duran \x06DIE"},nil,{"staredit\\wav\\_9993.ogg","staredit\\wav\\_9993.ogg"})
 	CIfEnd()
 
 	for j = 1, 251, 5 do
@@ -200,7 +200,7 @@ for i = 0, 4 do
 	if TestStart==1 then
 		DoActions(FP, {SetResources(i, Add, 99999999, Ore),}, 1)--SetInvincibility(Enable, "Buildings", Force2, 64)
 	end
-	TriggerX(FP,{Command(i, AtLeast, 1, "Terran Ghost")},{RemoveUnitAt(1, "Terran Ghost", "Anywhere", i);CreateUnit(1, "Jim Raynor (Marine)", "CD23", i);},{preserved})
+	TriggerX(FP,{Command(i, AtLeast, 1, "Terran Ghost")},{RemoveUnitAt(1, "Terran Ghost", "Anywhere", i);CreateUnit(1, 99, "CD23", i);},{preserved})
 
 	TriggerX(FP,{Bring(i, AtLeast, 1, "Men", 143),Bring(P8, AtMost, 0, "Protoss Temple", 64)},{
 		MoveUnit(All, "Men", i, 143, "CD228"),

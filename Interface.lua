@@ -243,11 +243,18 @@ end
 DoActions2X(FP,{SubCD(CanCT,1)})
 
 
-MacroWarn = "\x13\x04\n\x0D\x0D\x13\x04！！！　\x08ＷＡＲＮＩＮＧ\x04　！！！\n\x14\n\x14\n"..StrDesignX("\x08매크로 또는 핵이 감지되었습니다.").."\n"..StrDesignX("\x08패널티로 모든 미네랄, 유닛 몰수, 무한 찌릿찌릿이 제공됩니다.").."\n\n\x14\n\x0D\x0D\x13\x04！！！　\x08ＷＡＲＮＩＮＧ\x04　！！！\n\x0D\x0D\x13\x04"
-BanCode2 = CreateCcodeArr(5)
+	BanCode2 = CreateCcodeArr(7)
+	WanCT = CreateCcodeArr(7)
+	WanC = CreateCcodeArr(7)
+	local ExchangeP = CreateVar(FP)
+	MacroWarn1 = "\x13\x04\n\x0D\x0D\x13\x04！！！　\x08ＷＡＲＮＩＮＧ\x04　！！！\n\x14\n\x14\n"..StrDesignX("\x08매크로 또는 핵이 감지되었습니다.").."\n"..StrDesignX("\x08경고를 무시하고 계속 사용하실 경우 드랍됩니다.").."\n\n\x14\n\x0D\x0D\x13\x04！！！　\x08ＷＡＲＮＩＮＧ\x04　！！！\n\x0D\x0D\x13\x04"
+	MacroWarn = "\x13\x04\n\x0D\x0D\x13\x04！！！　\x08ＷＡＲＮＩＮＧ\x04　！！！\n\x14\n\x14\n"..StrDesignX("\x08매크로 또는 핵이 감지되었습니다.").."\n"..StrDesignX("\x08패널티로 모든 미네랄, 유닛 몰수, 무한 찌릿찌릿이 제공됩니다.").."\n\n\x14\n\x0D\x0D\x13\x04！！！　\x08ＷＡＲＮＩＮＧ\x04　！！！\n\x0D\x0D\x13\x04"
+
+
+
 WarnCT = CreateVarArr(5, FP)
 for i = 0, 4 do
-	CIf(FP,HumanCheck(i,1),{SubV(WarnCT[i+1],1),SetInvincibility(Enable, "Devouring One (Zergling)", i, "GiveRe")})
+	CIf(FP,HumanCheck(i,1),{SubCD(WanCT[i+1],1),SetInvincibility(Enable, "Devouring One (Zergling)", i, "GiveRe")})
 	
 	--if Limit == 1 then
 	--	local APM1,APM2,APM3 = CreateVars(3, FP) 
@@ -267,7 +274,9 @@ for i = 0, 4 do
 	
 	--TriggerX(FP, {Deaths(i,AtLeast,1,140),CV(WarnC[i+1],1),CV(WarnCT[i+1],0,AtMost)},{SetCD(BanCode2[i+1],1)})
 
-	TriggerX(FP, {Deaths(i,AtLeast,1,140)},{SetCD(BanCode2[i+1],1)})
+		TriggerX(FP, {ElapsedTime(AtLeast, 10),Deaths(i,AtLeast,1,140),CD(WanCT[i+1],0),CD(WanC[i+1],3,AtMost)},{SetCD(WanCT[i+1],60),AddCD(WanC[i+1],1),SetCp(i),DisplayText(MacroWarn1, 4),PlayWAV("sound\\Bullet\\TNsFir00.wav"),PlayWAV("sound\\Bullet\\TNsFir00.wav"),PlayWAV("sound\\Bullet\\TNsFir00.wav"),PlayWAV("sound\\Bullet\\TNsFir00.wav")},{preserved})
+		TriggerX(FP, {ElapsedTime(AtLeast, 10),Deaths(i,AtLeast,1,140),CD(WanCT[i+1],0),CD(WanC[i+1],4,AtLeast)},{SetCD(BanCode2[i+1],1)})
+	--TriggerX(FP, {Deaths(i,AtLeast,1,140)},{SetCD(BanCode2[i+1],1)})
 	TriggerX(FP, {CD(BanCode2[i+1],1)}, {
 		SetMemory(0x59CC78, SetTo, -1048576),
 		SetMemory(0x59CC80, SetTo, 2),SetCp(i),PlayWAV("staredit\\wav\\zzirizziri.ogg"),PlayWAV("staredit\\wav\\zzirizziri.ogg"),DisplayText(MacroWarn, 4),SetCp(FP),SetResources(i, SetTo, 0, Ore),ModifyUnitEnergy(All, "Men", i, 64, 0),ModifyUnitEnergy(All, "Buildings", i, 64, 0),RemoveUnit("Men", i),RemoveUnit(203, i),RemoveUnit(125, i)},{preserved})
@@ -416,7 +425,9 @@ if Limit == 1 then
 	CIfEnd()
 
 
+--[[
 --카르텔 전용 인식 여부에 따라 마린공격력과 체력 재설정
+
 Trigger2X(FP,{ElapsedTime(AtLeast, 35),Memory(0xA03740,Exactly,0)},{
 	RotatePlayer({PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),PlayWAVX("sound\\Terran\\Frigate\\AfterOn.wav"),
 	DisplayTextX(string.rep("\x13\x07코드 정상 입력 감지되었습니다! \x04마린 \x08체력 \x04및 \x1B공격력 \x07상향, \x17자환 적용, \x08응머즐 ㄱㄱ\n",5), 4)
@@ -427,10 +438,11 @@ SetMemory(0x662350 + (99*4),SetTo,15000*256),
 SetMemoryW(0x660E00 + (99 *2), SetTo, 15000),
 SetMemoryW(0x656EB0+(1 *2),SetTo,600),
 SetMemoryW(0x657678+(1 *2),SetTo,40),
-SetMemoryW(0x656EB0+(1 *112),SetTo,1200),
-SetMemoryW(0x657678+(1 *112),SetTo,80),
+SetMemoryW(0x656EB0+(112 *2),SetTo,1200),
+SetMemoryW(0x657678+(112 *2),SetTo,80),
 SetCD(CodeEnable, 1),
 Order("Any unit", Force2, 64, Move, "HZ"),
 })
+]]
 
 end
